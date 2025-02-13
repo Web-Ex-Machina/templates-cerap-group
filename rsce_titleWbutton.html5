@@ -1,0 +1,14 @@
+<?php if ($this->headline): ?>
+    <div class="d-grid cols-4 cols-md-1 alignitems--center <?= $this->class ?>">
+        <div class="cols-span-3 cols-span-md-1">
+            <<?= $this->hl ?> class="ce_headline_highlighted"<?= $this->cssID ?><?php if ($this->style): ?> style="<?= $this->style ?>"<?php endif; ?>>
+              <?= preg_replace('/--(.*)--/','<span class="ft-theme">$1</span>', $this->headline) ?>
+            </<?= $this->hl ?>>
+        </div>
+        <div class="txt-center">
+            <?php if($this->link_href): ?>
+              <a class="btn icon-last <?= $this->link_classes?:'btn-bd-theme' ?>" href="<?= $this->link_href ?>" title="<?= $this->link_title ?>"<?= $this->link_target ? ' target="_blank"' : '' ?>><?= $this->link_text ?> <i class="fa-solid fa-arrow-right-long"></i></a>
+            <?php endif; ?>
+        </div>
+    </div>
+<?php endif ?>

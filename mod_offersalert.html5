@@ -1,0 +1,213 @@
+<?php $this->extend('block_unsearchable'); ?>
+
+<?php $this->block('content'); ?>
+<?php if ($this->error): ?>
+	<p class="lead ft-1-5-em">Erreur :</p>
+	<p><?= $this->message ?></p>
+	<?= $this->trace ?>
+<?php elseif ($this->isRequest): ?>
+	<p><?= $this->message ?></p>
+<?php elseif ($this->unsubscribe): ?>
+	<div class="bg-primary <?php echo $this->class ?>__form">
+		<p><?= $this->unsubscribeLbl ?></p>
+		<input type="email" name="email" placeholder="<?= $GLOBALS['TL_LANG']['WEM']['OFFERS']['email'] ?>" class="" />
+		<div class="<?php echo $this->class ?>__actions">
+			<a href="<?= $this->gdprPage ?>" target="_blank"><?= $GLOBALS['TL_LANG']['WEM']['OFFERS']['privacy'] ?></a>
+			<button type="button" class="btn-bd-white btn-sm " data-process="unsubscribeFeed"><?= $GLOBALS['TL_LANG']['WEM']['OFFERS']['unsubscribe'] ?></button>
+		</div>
+	</div>
+	<script>
+		var rt = '{{request_token}}';
+		var unsubscribeFeed = function(btn){
+			return new Promise(function(resolve,reject){
+				var data = {
+					email: $('.mod_offersalert input[name="email"]').val()
+				}
+			    $.ajax({
+					timeout: 10000,
+					url: window.location.pathname,
+					type: 'post',
+					data:{
+						'TL_AJAX':true,
+						'module': <?= $this->moduleId ?>,
+						'REQUEST_TOKEN':rt ,
+						'action': 'unsubscribe',
+						'email': data.email
+					},
+				}).done(function(data){
+					try{var results = $.parseJSON(data); } 
+					catch(e){reject();}
+					notif_fade[results.status](results.msg);
+					if (results.status == "success") {
+						resolve();
+					} else {
+						reject();
+					}
+				}).fail(function(jqXHR, textStatus){
+					reject();
+				});
+			});
+		}
+
+	 	document.querySelector('[data-process="unsubscribeFeed"]').addEventListener('click',unsubscribeFeed)
+		
+	</script>
+<?php else: ?>
+	<div class="<?php echo $this->class ?>__wrapper <?php echo $this->offer_alertTeaser?'d-grid cols-3 cols-md-2 cols-sm-1 m-bottom gap-0-rem':'' ?>">
+		
+		<?php if ($this->offer_alertTeaser): ?>
+		<div class="<?php echo $this->class ?>__text bg-greylight text cols-span-2 cols-span-md-1">
+			<?= $this->offer_alertTeaser ?>
+		</div>
+		<?php endif; ?>
+
+		<div class="bg-theme rad <?php echo $this->class ?>__form">
+			<input type="email" name="email" placeholder="<?= $GLOBALS['TL_LANG']['WEM']['OFFERS']['email'] ?>*" class="" required>
+			
+			<?php if ($this->conditions): ?>
+			<div class="conditions" data-autocomplete="false" data-count="false" data-reset="false" data-submit="false">
+				<?php foreach ($this->conditions as $c): ?>
+					<?php if ('select' == $c['type'] && 'location' != $c['name']): ?>
+						<select name="<?= $c['name']; ?>"<?= $c['multiple'] ? ' multiple' : ''; ?><?= $c['multiple'] ? ' placeholder="'. $c['label'] .'"' : ''; ?> class="">
+							<?php if (!$c['multiple']): ?>
+							<option value="">- <?= $c['label']; ?> -</option>
+							<?php endif; ?>
+
+							<?php foreach ($c['options'] as $o): ?>
+							<option value="<?= $o['value']; ?>"<?= $o['selected'] ? ' selected' : ''; ?>><?= $o['label']; ?></option>
+							<?php endforeach; ?>
+						</select>
+					<?php else: ?>
+						<?php if ('location' != $c['name']): ?>
+							<input type="text" class="" name="<?= $c['name']; ?>" value="<?= $c['value']; ?>" placeholder="<?= $c['placeholder']; ?>" />
+						<?php else: ?>
+							<input type="text" list="geocities__results" autocomplete=off class="geocities" name="<?= $c['name']; ?>" value="<?= $c['value']; ?>" placeholder="{{iflng::en}}Location{{iflng::fr}}Localisation{{iflng}}"  />
+							<datalist id="geocities__results"></datalist>
+							<input type="hidden" name="lat" value="">
+							<input type="hidden" name="lng" value="">
+							<div class="form-group geocities__radius hidden">
+								<label>Rayon: <span class="value">0</span>km</label>
+								<input name="radius" type="range" min="0" max="100" step="10" value="0">
+							</div>
+						<?php endif ?>
+					<?php endif; ?>
+				<?php endforeach; ?>
+			</div>
+			<?php endif; ?>
+
+			<div class="<?php echo $this->class ?>__actions">
+				<a href="<?= $this->gdprPage ?>" target="_blank"><?= $GLOBALS['TL_LANG']['WEM']['OFFERS']['privacy'] ?></a>
+				<button type="button" class="btn-bd-white btn-sm" data-process="subscribeFeed"><?= $GLOBALS['TL_LANG']['WEM']['OFFERS']['subscribe'] ?></button>
+			</div>
+		</div>
+	</div>
+
+	<script>
+		
+		var timerInput;
+		document.querySelectorAll('input.geocities').forEach((el)=>{
+			el.addEventListener('keyup',function(){
+				clearTimeout(timerInput);
+				timerInput = setTimeout(function(){
+					$.ajax({
+					    timeout: 10000,
+					    url: window.location.origin+'/api/geocities/cities',
+					    method: 'get',
+					    data:{
+					        'name': el.value
+					    },
+					}).done(function(data){
+					    el.list.innerHTML = '';
+					    // for(var item of data.member){
+					    for(var item of data.member.slice(0,5)){
+					    	$(el.list).append(`<option value="${item.name}" lat="${item.latitude}" lng="${item.longitude}"></option>`)
+					    }
+					}).fail(function(jqXHR, textStatus){
+						console.log(jqXHR,textStatus);
+					});
+				},100);
+			})
+			el.addEventListener('change',function(){
+				el.blur();
+				el.closest('.conditions').querySelector('input[name=lat]').value = "";
+				el.closest('.conditions').querySelector('input[name=lng]').value = "";
+				document.querySelector('.geocities__radius').classList.add('hidden');
+				if (el.list.querySelector('option[value="'+el.value+'"]')) {
+					let option = el.list.querySelector('option[value="'+el.value+'"]');
+					el.closest('.conditions').querySelector('input[name=lat]').value = option.getAttribute('lat');
+					el.closest('.conditions').querySelector('input[name=lng]').value = option.getAttribute('lng');
+					document.querySelector('.geocities__radius').classList.remove('hidden');
+				}
+			})
+		})
+
+		document.querySelectorAll('.geocities__radius input[type="range"]').forEach((el)=>{
+			el.addEventListener('change',function(){
+				el.closest('.geocities__radius').querySelector('label span.value').innerHTML = el.value;
+			})
+		})
+
+		var rt = '{{request_token}}';
+		var strEmptyField = 'Veuillez renseigner le champ ';
+		if (document.querySelector('html').lang != 'fr')
+			strEmptyField = 'Please fill the field ';
+		var subscribeFeed = function(btn){
+			return new Promise(function(resolve,reject){
+				// console.log('subscribeFeed');
+				let isOk = true;
+				let data = {
+					email: $('.mod_offersalert input[name="email"]').val(),
+					conditions: {}
+				}
+
+				if ($('.mod_offersalert input[name="email"]').is(':valid') == false) {
+					notif_fade.error(strEmptyField + ($('.mod_offersalert input[name="email"]').attr('placeholder') ? $('.mod_offersalert input[name="email"]').attr('placeholder') : $('.mod_offersalert input[name="email"]').attr('name')) );
+					isOk = false;
+				}
+
+				$('.mod_offersalert .conditions').find('input,select').each(function(){
+					data.conditions[this.name] = this.value;
+					if (this.required && this.value.trim() == '') {
+						notif_fade.error(strEmptyField + (this.getAttribute('placeholder') ? this.getAttribute('placeholder') : this.getAttribute('name')) );
+						isOk = false;
+					}
+				});
+
+
+				if (isOk) {
+				    $.ajax({
+						timeout: 10000,
+						url: window.location.pathname,
+						type: 'post',
+						data:{
+							'TL_AJAX':true ,
+							'module': <?= $this->moduleId ?>,
+							'REQUEST_TOKEN':rt ,
+							'action': 'subscribe',
+							'email': data.email,
+							'conditions': data.conditions,
+						},
+					}).done(function(data){
+						try{var results = $.parseJSON(data); } 
+						catch(e){reject();}
+						notif_fade[results.status](results.msg);
+						if (results.status == "success") {
+							resolve();
+						} else {
+							reject();
+						}
+					}).fail(function(jqXHR, textStatus){
+						console.log(jqXHR, textStatus);
+						notif_fade.error(textStatus);
+						reject();
+					});
+				}
+			});
+		}
+
+	 	document.querySelector('[data-process="subscribeFeed"]').addEventListener('click',subscribeFeed)
+
+	</script>
+<?php endif; ?>
+
+<?php $this->endblock(); ?>

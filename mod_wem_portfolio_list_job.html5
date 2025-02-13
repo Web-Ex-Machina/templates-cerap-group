@@ -1,0 +1,35 @@
+<?php $this->extend('block_unsearchable'); ?>
+
+<?php $this->block('content'); ?>
+	
+	<?php if($this->blnError): ?>
+		<p class="error"><?= $this->strError ?></p>
+	<?php else: ?>	
+		<?php if ($this->filters): ?>
+		<div class="w-full portfolio__wrapper">
+			<div class="portfolio__left">
+				<div class="stick" style="position: sticky; top: 1em;">
+					<div class="portfolio__nbItems">
+						<div><span class="nb"><?php echo count($this->items) ?></span> fiche<?php echo count($this->items)>1?'s':'' ?> métier</div>
+        				<button class="portfolio__filters__toggledeploy btn-bd-theme squared btn-sm visible-md hidden"><i class="fa fa-filters"></i></button>
+					</div>
+					<?= $this->filters ?>
+				</div>
+			</div>
+		<?php endif ?>
+			<div class="portfolio__right">
+				<?php if (empty($this->items)): ?>
+				<p class="empty"><?= $this->empty ?></p>
+				<?php else: ?>
+				<div class="portfolio__items block-card__container d-grid cols-autofill gap-1">
+					<?= implode('', $this->items) ?>
+				</div>
+				<?= $this->pagination ?>
+				<?php endif; ?>
+			</div>
+		<?php if ($this->filters): ?>
+		</div>
+		<?php endif ?>
+	<?php endif; ?>
+
+<?php $this->endblock(); ?>

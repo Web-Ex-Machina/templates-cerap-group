@@ -1,0 +1,31 @@
+<div class="offer offer__default<?= $this->class ?>" data-offer="<?= $this->id ?>" itemscope itemtype="http://schema.org/Article" data-preset="inline">
+	<div class="offer__wrapper block-std">
+		<div class="offer__figure fit--scaledown">
+			<?php 
+				$str_entity = 'Logo_'.str_replace(' ', '-', $this->entity);
+				if($str_entity != 'Logo_CERAP-GROUP')
+					$str_entity = 'subsidiaries/'.$str_entity;
+			?>
+			<img src="files/media/logos/<?php echo $str_entity ?>.png" alt="<?php echo $str_entity ?>" />
+		</div>
+		<div class="offer__content">
+			<div class="offer__title">
+				<span class="ft-theme"><?php echo $this->title ?></span>
+				<?php echo $this->location ? ' - <span class="ft-nowrap"> '. $this->beetween_location_city .' (' . $this->beetween_location_region2_code . ')</span>' : '' ?>
+			</div>
+			<div class="ft-grey">
+				<?php echo $this->beetween_contract ?> - <?php echo $this->beetween_contract_rythm ?><br>
+				<?php echo $this->field ?>
+			</div>
+		</div>
+		<div class="offer__actions">
+			<!--<div class="btn-hexa btn-bg-theme offer__action" title="<?= $GLOBALS['TL_LANG']['WEM']['OFFERS']['seeOffer'] ?>" data-process="openDetailsModal" data-offer="<?= $this->id ?>" data-icon="false" data-result="false">
+				<i class="fa-regular fa-arrow-right-long"></i>
+			</div>-->
+			<a href="<?= $this->jumpTo ?>" class="btn-hexa btn-bg-theme offer__action" title="<?= $GLOBALS['TL_LANG']['WEM']['OFFERS']['seeOffer'] ?>">
+				<i class="fa-regular fa-arrow-right-long"></i>
+			</a>
+		</div>
+	</div>
+</div>
+

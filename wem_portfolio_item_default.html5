@@ -1,0 +1,64 @@
+<?php 
+  // Weird way to retrieve the correct image
+  // but it's easier like this
+  if(false !== strpos($this->attributes['entity']['raw_value'], "ADVANCE")) {
+    $strLogo = 'subsidiaries/Logo_ADVANCE';
+  } else if (false !== strpos($this->attributes['entity']['raw_value'], "ATRON")) {
+    $strLogo = 'subsidiaries/Logo_ATRON';
+  } else if (false !== strpos($this->attributes['entity']['raw_value'], "Prévention")) {
+    $strLogo = 'subsidiaries/Logo_CERAP-FR';
+  } else if (false !== strpos($this->attributes['entity']['raw_value'], "UK")) {
+    $strLogo = 'subsidiaries/Logo_CERAP-UK';
+  } else if (false !== strpos($this->attributes['entity']['raw_value'], "Switzerland")) {
+    $strLogo = 'subsidiaries/Logo_CERAP-CH';
+  } else if (false !== strpos($this->attributes['entity']['raw_value'], "SEFC")) {
+    $strLogo = 'subsidiaries/Logo_SEFC';
+  } else if (false !== strpos($this->attributes['entity']['raw_value'], "NUSAM")) {
+    $strLogo = 'subsidiaries/Logo_NUSAM';
+  } else {
+    $strLogo = 'Logo_CERAP';
+  }
+?>
+<div class="portfolio_item block-card r_4-3 block content__bg--greystronger ft-white <?= $this->class ?>"<?= $this->cssID ?> itemscope itemtype="http://schema.org/Article" data-maxlines="4">
+  <div class="block-card__wrapper">
+    <div class="block-card__figure">
+      <?php if ($this->singleSRC): ?>
+          <img src="<?= $this->singleSRC['path'] ?>" alt="<?= $this->alt ?: $this->title ?>" itemprop="image">
+      <?php endif; ?>
+      <div class="block-card__headline">
+        <div></div>
+        <div class="block-card__category">
+          <?php foreach (explode(',', $this->attributes['tags']['raw_value']) as $t) {echo '<span class="tag">'.$t.'</span>';}; ?>
+        </div>
+      </div>
+    </div>
+    <div class="block-card__header">
+      <div class="entity">
+        <?php if ($this->attributes['entity']): ?>
+          <img src="files/media/logos/<?php echo $strLogo ?>.png" alt="<?php echo $this->attributes['entity']['raw_value'] ?>" />
+        <?php endif ?>
+      </div>
+      <div class="separator">X</div>
+      <div class="customer">
+        <?php if ($this->attributes['customer']): ?>
+          <img src="<?php echo $this->attributes['customer']['raw_value']['singleSRC'] ?>" alt="<?php echo $str_entity ?>" />
+        <?php endif ?>
+      </div>
+    </div>  
+    <div class="block-card__content">
+      <div class="block-card__title"> <?php echo $this->title ?> </div>
+      <?php if ($this->teaser): ?>
+        <div class="block-card__text" itemprop="description">
+          <?php echo strip_tags($this->teaser); ?>
+        </div>
+      <?php endif ?>
+      <?php if ($this->jumpTo): ?>
+        <div class="block-card__actions">
+            <a href="<?= $this->jumpTo ?>" title="<?= $this->title.': '.$GLOBALS['TL_LANG']['MSC']['more'] ?>"<?= ($this->target) ? ' target="_blank"' : '' ?> class="btn-sm icon-last btn-bd-white">
+              Voir le projet <i class="fa-solid fa-arrow-right-long"></i>
+            </a>
+        </div>
+      <?php endif ?>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,17 @@
+
+<?php $this->block('content'); ?>
+
+  <?php if ($this->headline): ?>
+    <<?= $this->hl ?>><?= $this->headline ?></<?= $this->hl ?>>
+  <?php endif; ?>
+  
+  <?php $this->insert('filters', ['filters'=>$this->filters ?? [],'config'=>$this->config ?? [],'dataContainer'=>'listNews']); ?>
+  <div class="<?= $this->class ?> d-grid cols-autofill gap-1" style="--griditem-minwidth: 36ch">
+    <?php if (empty($this->articles)): ?>
+      <p class="empty"><?= $this->empty ?></p>
+    <?php else: ?>
+      <?= implode('', $this->articles) ?>
+    <?php endif; ?>
+  </div>
+  <?= $this->pagination ?>
+<?php $this->endblock(); ?>

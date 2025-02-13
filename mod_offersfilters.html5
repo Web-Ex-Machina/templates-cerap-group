@@ -1,0 +1,75 @@
+<?php $this->extend('block_unsearchable'); ?>
+
+
+<?php $this->block('content'); ?>
+  <?php if ($this->filters): ?>
+	<form class="offers__filters__form" data-fdm="true" action="{{env::request}}" method="GET">
+  	<div class="offers__filters block-std m-bottom-0">
+  		<b>Chercher une offre</b>
+	  	<?php foreach ($this->filters as $f): ?>
+	  		<?php if ($f['name'] != 'search'): ?>
+					<?php if ('select' == $f['type']): ?>
+						<select class="filter" name="<?= $f['name']; ?>"<?= $f['multiple'] ? ' multiple' : ''; ?> placeholder="<?php echo $f['placeholder'] ?: $f['label'] ?>">
+							<?php if (!$f['multiple']): ?>
+							<option value="">- <?= $f['label']; ?> -</option>
+							<?php endif; ?>
+							<?php foreach ($f['options'] as $index=>$o): ?>
+							<?php if(array_key_exists('options',$o)): ?>
+								<optgroup label="<?= $index; ?>">
+								<?php foreach ($o['options'] as $oo): ?>
+									<option value="<?= $oo['value']; ?>"<?= $oo['selected'] ? ' selected' : ''; ?>><?= $oo['label']; ?></option>
+								<?php endforeach; ?>
+								</optgroup>
+							<?php else: ?>
+									<option value="<?= $o['value']; ?>"<?= $o['selected'] ? ' selected' : ''; ?>><?= $o['label']; ?></option>
+							<?php endif; ?>
+							<?php endforeach; ?>
+						</select>
+					<?php else: ?>
+						<input class="filter" type="text" name="<?= $f['name']; ?>" value="<?= $f['value']; ?>" placeholder="<?= $f['placeholder']; ?>" />
+					<?php endif; ?>
+	  		<?php endif ?>
+			<?php endforeach; ?>
+				<?php foreach ($this->filters as $f): ?>
+	  			<?php if ($f['name'] == 'search'): ?>
+							<input class="filter" type="text" name="<?= $f['name']; ?>" value="<?= $f['value']; ?>" placeholder="<?= $f['placeholder']; ?>" />
+	  			<?php endif ?>
+				<?php endforeach; ?>
+				<div class="input-group w-100">
+					<button type="submit" class="btn-bg-theme w-100"><span class="nbOffers">X</span>[nbsp]offres</button>
+				</div>
+	  </div>
+	</form>
+
+	<script type="text/javascript">
+		window.addEventListener("load", function(e) {
+			countOfferItems(
+				'<?= System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue() ?>',
+				<?= $this->moduleId ?>
+			).then((count) => {
+				$('.offers__filters__form .nbOffers').text(count);
+			});
+
+			$('.offers__filters__form .filter').on('change',function(){
+				var filters = {};
+				$('.offers__filters__form .filter').each(function() {
+					if ('undefined' !== $(this).attr('name') && "" !== $(this).val()) {
+						filters[$(this).attr('name')] = $(this).val();
+					}
+				});
+
+				countOfferItems(
+					'<?= System::getContainer()->get('contao.csrf.token_manager')->getDefaultTokenValue() ?>',
+					<?= $this->moduleId ?>,
+					filters
+				).then((count) => {
+					$('.offers__filters__form .nbOffers').text(count);
+				});
+			});
+		});
+		
+		
+	</script>
+  <?php endif; ?>
+
+<?php $this->endblock(); ?>

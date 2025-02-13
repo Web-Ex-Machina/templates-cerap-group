@@ -1,0 +1,16 @@
+<?php $this->block('content'); ?>
+  <div class="<?= $this->class ?> d-grid m-y-x2">
+    <?php if (empty($this->articles)): ?>
+      <p class="empty"><?= $this->empty ?></p>
+    <?php else: ?>
+
+      <div class="sliderFW block-card__slider img__opacity--0 content__bg__opacity--0 nav--hidden" data-nbitems="3" data-height="" data-duration="1000" data-delay="5600" data-auto="false" data-arrows="true" data-transition="" data-swipe="true" data-loop="true" data-keypress="false" data-minsizeitem="">
+        <div class="sliderFW__container">
+          <div class="sliderFW__rail">
+            <?= implode('', $this->articles) ?>
+          </div>
+        </div>
+      </div>
+    <?php endif; ?>
+  </div>
+<?php $this->endblock(); ?>

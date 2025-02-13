@@ -1,0 +1,38 @@
+<?php
+  // Get the file
+  $arrCrop = deserialize($this->size);
+  $objFile = FilesModel::findByUuid($this->singleSRC);
+  $strFile = \Image::get($objFile->path, (!$arrCrop[0] && !$arrCrop[1]) ? 1920 : $arrCrop[0] , $arrCrop[1] ?: '', $arrCrop[2] ?: "proportional");
+
+  // Prepare the main block classes
+  $arrClasses = [];
+  if($this->image_displaymode)
+    $arrClasses[] = $this->image_displaymode;
+  if($this->image_ratio)
+    $arrClasses[] = $this->image_ratio;
+  if($this->image_align_horizontal)
+    $arrClasses[] = $this->image_align_horizontal;
+  if($this->image_align_vertical)
+    $arrClasses[] = $this->image_align_vertical;
+
+?>
+<div class="<?= $this->class ?> <?= implode(' ', $arrClasses)  ?> ">
+    <div class="quote__picture <?= $this->image_ratio ? 'img-container':'' ?><?= $this->rounded?' rounded-circle':'' ?>" <?= $this->image_ratio && $arrCrop[0] ? 'style="width:'.$arrCrop[0].'px"':'' ?>>
+      <?php if ($strFile): ?>
+        <img src="<?= $strFile ?>" alt="<?= $this->alt ?>" width="<?= $arrCrop[0] ?>" height="<?= $arrCrop[1] ?>" >
+      <?php endif ?>
+    </div>
+  <div class="quote__content">
+    <div class="quote__content__author">
+      <span class=ft-theme><?= $this->author ?></span><br>
+      <span><?php echo $this->author_position ?></span>
+    </div>
+    <div class="quote__content__text ">
+      <i class="fa-regular fa-comment-quote quote__icon"></i>
+      <?php if ($this->url): ?>
+          <a href="<?= $this->url ?>" <?= $this->target?' target="_blank"':'' ?> class="btn-hexa btn-bg-theme <?= $this->link_css ?>" title="<?= trim(strip_tags($this->titleText)) ?: trim(strip_tags($this->linkTitle)) ?>"><i class="fa-regular fa-arrow-right-long"></i></a>
+      <?php endif ?>
+      <?= $this->text ?>
+    </div>
+  </div>
+</div>

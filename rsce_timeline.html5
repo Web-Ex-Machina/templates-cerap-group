@@ -1,0 +1,50 @@
+<?php
+  if ($this->image){
+    $arrCrop = deserialize($this->imageCrop);
+    $objFile = FilesModel::findByUuid($this->image);
+    $strFile = \Image::get($objFile->path, (!$arrCrop[0] && !$arrCrop[1]) ? 1920 : $arrCrop[0] , $arrCrop[1] ?: '', $arrCrop[2] ?: "proportional");
+  }
+?>
+<div class="<?= $this->class ?> timeline <?= $this->timeline_style?><?= $this->timeline_color ? ' timeline__color--'.$this->timeline_color:'' ?><?= ($this->image) ? ' hasImg':'' ?>">
+  <div class="timeline__wrapper">
+    <?php if ($objFile && $this->imagePos == 'left'): ?>
+      <div class="timeline__img">
+        <img src="<?= $strFile ?>" alt="">
+      </div>
+    <?php endif ?>
+    <div class="timeline__content">
+      <div class="timeline__body">
+        <?php foreach ($this->items as $key => $item): ?>
+          <div class="timeline__item <?= $key % 2 == 0 ? 'left' : 'right'; ?> <?= $key == 0 ? 'item--start':''; ?><?= $key == count($this->items) - 1 ? 'item--end':''; ?>">
+            <div class="timeline__item__content">
+              <div>
+                <div class="timeline__item__year<?= $this->title_color ? ' ft-'.$this->title_color:'' ?>"><?= $item->year ?></div>
+                <!-- <?php if ($item->headline['value']): ?>
+                  <<?= $item->headline['unit'] ?> class="timeline__item__title<?= $this->title_color ? ' ft-'.$this->title_color:'' ?>"><?= $item->headline['value'] ?></<?= $item->headline['unit'] ?>>
+                <?php endif ?> -->
+                <?= $item->text ?>
+              </div>
+              <?php if ($item->image_src): ?>
+                <div class="timeline__item__picture">
+                  <?php 
+                      // Get the file
+                      $arrCrop = deserialize($item->image_size);
+                      $objFile = FilesModel::findByUuid($item->image_src) ?: FilesModel::findOneByPath($item->image_src);
+                      $strFile = \Image::get($objFile->path, (!$arrCrop[0] && !$arrCrop[1]) ? 1920 : $arrCrop[0] , $arrCrop[1] ?: '', $arrCrop[2] ?: "proportional");
+                      echo '<img class="block-logo__img" src="'.$strFile.'" alt="'.($item->image_alt ?: $objFile->name).'">';
+                  ?>
+                </div>
+              <?php endif ?>
+            </div>
+          </div>
+          <?php if ($key == 0): ?><div class="empty"></div><?php endif ?>
+        <?php endforeach ?>
+      </div>
+    </div>
+    <?php if ($objFile && $this->imagePos == 'right'): ?>
+      <div class="timeline__img">
+        <img src="<?= $strFile ?>" alt="">
+      </div>
+    <?php endif ?>
+  </div>
+</div>

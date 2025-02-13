@@ -1,0 +1,9 @@
+<div class="btn-group">
+  <?php foreach ($this->items as $item): ?>
+    <?php if ($item['isActive']): ?>
+        <span class="btn-bd-greylight <?= $item['class'] ?>"<?php if (!empty($item['subitems'])): ?> aria-haspopup="true"<?php endif; ?>><?= $item['link'] ?></span><?= $item['subitems'] ?? '' ?>
+    <?php else: ?>
+        <a href="<?= $item['href'] ?: './' ?>" title="<?= $item['pageTitle'] ?: $item['title'] ?>"<?php if ($item['class']): ?> class="btn-bd-greylight <?= $item['class'] ?>"<?php endif; ?><?php if ('' !== $item['accesskey']): ?> accesskey="<?= $item['accesskey'] ?>"<?php endif; ?><?php if ($item['tabindex']): ?> tabindex="<?= $item['tabindex'] ?>"<?php endif; ?><?= $item['target'] ?><?= $item['rel'] ?? '' ?><?php if (!empty($item['subitems'])): ?> aria-haspopup="true"<?php endif; ?>><?= $item['link'] ?></a><?= $item['subitems'] ?? '' ?>
+    <?php endif; ?>
+  <?php endforeach; ?>
+</div>

@@ -1,0 +1,13 @@
+<?php $this->extend('block_searchable'); ?>
+
+<?php $this->block('content'); ?>
+
+  <?= $this->portfolio ?>
+
+  <!-- indexer::stop -->
+  <?php if($this->referer): ?>
+  <a class="btn-bd-theme btn-lg center" href="<?= $this->referer ?>" title="<?= $this->back ?>"><?= $this->back ?></a>
+  <?php endif; ?>
+  <!-- indexer::continue -->
+
+<?php $this->endblock(); ?>

@@ -1,0 +1,4 @@
+
+<<?= $this->hl ?> class="<?= $this->class ?> ce_headline_highlighted"<?= $this->cssID ?><?php if ($this->style): ?> style="<?= $this->style ?>"<?php endif; ?>>
+  <?= preg_replace('/--(.*)--/','<span class="ft-theme">$1</span>', $this->headline) ?>
+</<?= $this->hl ?>>

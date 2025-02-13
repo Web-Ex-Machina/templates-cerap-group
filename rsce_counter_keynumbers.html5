@@ -1,0 +1,11 @@
+<div class="countUpFW keynumbers <?= $this->class ?><?php echo $this->color?' color--'.$this->color:'' ?>"<?= $this->cssID ?> data-startval="<?= $this->startVal ?>" data-endval="<?= $this->endVal ?>" data-decimals="<?= $this->decimals ?>" data-duration="<?= $this->duration ?>" data-delay="<?= $this->delay ?>" data-prefix="<?php echo $this->prefix ?>" data-separator="<?php echo $this->separator?'true':'false' ?>" data-decimal="<?php echo $this->decimal ?>">
+  <?php if ($this->icon): ?>
+    <div class="countUpFW__icon"><?php echo $this->icon ?></div>
+  <?php endif ?>
+  <span class="countUpFW__num"></span>
+  <span class="countUpFW__unit"><?= $this->unit ?></span>
+  <div class="countUpFW__label"><?= $this->label ?></div>
+  <?php if ($this->link_href): ?>
+    <a class="btn countUpFW__btn <?= $this->link_classes ?>" href="<?= $this->link_href ?>" title="<?= $this->link_title ?>"<?= $this->link_target ? ' target="_blank"' : '' ?>><?= $this->link_text ?></a>
+  <?php endif ?>
+</div>

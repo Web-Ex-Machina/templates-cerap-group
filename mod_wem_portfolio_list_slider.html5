@@ -1,0 +1,41 @@
+<?php $this->block('content'); ?>
+<div class="<?= $this->class ?> d-grid m-y-x2">
+	
+	<?php if($this->blnError): ?>
+		<p class="error"><?= $this->strError ?></p>
+	<?php else: ?>
+		<?php if (empty($this->items)): ?>
+			<p class="empty"><?= $this->empty ?></p>
+		<?php else: ?>
+			<?php if($this->filters): ?>
+			<form action="{{env::request}}" method="get">
+				<label class=""><?= $this->filterBy ?> :</label>
+				<div class="filters row">
+					<?php foreach($this->filters as $key=>$filter): ?>
+					<?php if($filter['options']): ?>
+					<div class="filter col-md-2 col-md-4 col-12">
+						<select name="<?= $key ?>" onchange="this.form.submit()">
+							<option value="">- <?= $filter['label'] ?> -</option>
+							<?php foreach($filter['options'] as $option): ?>
+								<option value="<?= $option['value'] ?>"<?= ($option['selected'] && $option['value']) ? ' selected' : '' ?>><?= $option['text'] ?></option>
+							<?php endforeach; ?>
+						</select>
+					</div>
+					<?php endif; ?>
+					<?php endforeach; ?>
+				</div>
+			</form>
+			<?php endif; ?>
+			<div class="sliderFW block-card__slider img__opacity--0 content__bg__opacity--0 nav--hidden" data-nbitems="3" data-height="" data-duration="1000" data-delay="5600" data-auto="false" data-arrows="true" data-transition="" data-swipe="true" data-loop="true" data-keypress="false" data-minsizeitem="">
+			  	<div class="sliderFW__container">
+			    	<div class="sliderFW__rail">
+						<?= implode('', $this->items) ?>
+					</div>
+				</div>
+			</div>
+			<?= $this->pagination ?>
+		<?php endif; ?>
+	<?php endif; ?>
+
+</div>
+<?php $this->endblock(); ?>

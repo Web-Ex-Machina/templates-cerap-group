@@ -1,0 +1,13 @@
+
+<div class="block-card fit--cover r_4-3 img--center img--center <?= $this->class ?>"<?= $this->cssID ?> itemscope itemtype="http://schema.org/Article" data-maxlines="4">
+  <a href="<?= $this->jumpTo ?>" title="<?= $this->title.': '.$GLOBALS['TL_LANG']['MSC']['more'] ?>"<?= ($this->target) ? ' target="_blank"' : '' ?> class="block-card__wrapper block-std rad">
+    <div class="block-card__figure">
+      <?php if ($this->singleSRC): ?>
+          <img src="<?= $this->singleSRC['path'] ?>" alt="<?= $this->alt ?: $this->title ?>" itemprop="image">
+      <?php endif; ?>
+    </div>
+    <div class="block-card__content" style="padding: 1.75em 1.75em 2em;">
+      <div class="block-card__title h4  txt-center ft-theme"> <?php echo $this->title ?> </div>
+    </div>
+  </a>
+</div>

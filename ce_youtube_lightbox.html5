@@ -1,0 +1,42 @@
+<div class="ce_youtube flex h-100">
+<?php $this->block('content'); ?>
+    <?php if ($this->aspect): ?>
+      <div class="img-container fit--cover _r_<?php echo implode('-',explode(':',$this->playerAspect)) ?>">
+    <?php endif ?>
+      <a href="#" id="modal-youtube-<?php echo $this->id ?>">
+        <?php $this->insert('picture_default', $this->splashImage->picture); ?>
+      </a>
+      <?php if ($this->caption): ?>
+      <figcaption class="caption"><?= $this->caption ?></figcaption>
+    <?php endif; ?>
+    <?php if ($this->aspect): ?>
+      </div>
+    <?php endif ?>
+    <script>
+      window.addEventListener("load", function(e) {
+          $('#modal-youtube-<?php echo $this->id ?>').on('click',function(e){
+            e.preventDefault()
+            if(!$('.modalFW[data-name=modal-youtube-<?php echo $this->id ?>]').length){
+              var modal = new app.ModalFW({
+                name : 'modal-youtube-<?php echo $this->id ?>',
+                content: `
+                  <?php if ($this->aspect): ?>
+                    <div class="img-container r_<?php echo implode('-',explode(':',$this->playerAspect)) ?>">
+                  <?php endif ?>
+                    <iframe class="custom" <?= $this->size ?> src="<?= $this->src ?>" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>
+                  <?php if ($this->aspect): ?>
+                    </div>
+                  <?php endif ?>
+                `,
+                blnOpen: true,
+                blnAutodestroy: true,
+                width: <?php echo $this->width ?>,
+              });
+            } else {
+              $('.modalFW[data-name=modal-youtube-<?php echo $this->id ?>]').modalFW('get').open()
+            }
+          })
+      });
+    </script>
+<?php $this->endblock(); ?>
+</div>

@@ -1,0 +1,70 @@
+<div class="portfolio_full block<?= $this->class ?>" itemscope itemtype="http://schema.org/Article">
+	<div class="heroFW splitcontent  height--content w-full img--center img--center content__bg--aquamarine ce_rsce_hero m-bottom-0" data-height="" style="height:;">
+		<div class="heroFW__wrapper">
+			<?php if ($this->singleSRC): ?>
+			<div class="heroFW__figure">
+				    <img src="<?= $this->singleSRC['path'] ?>" alt="<?= $this->alt ?: $this->title ?>" itemprop="image">
+			</div>
+			<?php endif; ?>
+			<div class="heroFW__content ">
+				<div class="heroFW__content__wrapper">
+					<h1 class="heroFW__title"><?= $this->title ?></h1>                
+					<div class="heroFW__text" style="">
+						<?php if ($this->teaser): ?>
+							<?php echo $this->teaser ?>
+						<?php endif; ?>               
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+	{{insert_module::3}} <!-- breadcrumb -->
+
+	<?php if ($this->attributes['video'] && $this->attributes['video']['raw_value']): ?>
+		<div class="video m-bottom-x3" id="video">
+			<h2 class="ce_headline_highlighted">Video</h2>
+			<?php echo $this->attributes['video']['raw_value'] ?>	
+		</div>
+	<?php endif; ?>
+
+	<?php if ($this->attributes['details']): ?>
+	<div class="desc m-bottom-x3<?php echo !$this->text && $this->teaser ?  ' hasTeaser':''  ?>" id="desc">
+		<h2 class="ce_headline_highlighted">Description</h2>
+		<?php echo $this->attributes['details']['raw_value'] ?>	
+	</div>
+	<?php endif; ?>
+
+	<?php if (!empty($this->pictures) && count($this->pictures)>0): ?>
+		<div class="gallery m-bottom-x3">
+			<h2 class="ce_headline_highlighted">Le projet en images</h2>
+			<div class="d-grid cols-autofill">
+				<?php foreach ($this->pictures as $key => $picture): ?>
+					<a href="<?= $picture["singleSRC"] ?>" data-gallery="gallery_<?php echo $this->id ?>" data-modal="modalPicture_<?= $picture["id"]?:$key ?>" class="img-container r_4-3">
+					    <img src="<?= $picture["singleSRC"] ?>" alt="<?= $picture["filesModel"]->meta?:$picture["filesModel"]->name ?>" itemprop="image">
+					</a>
+				<?php endforeach ?>
+			</div>
+		</div>
+	<?php endif; ?>
+
+	<?php if ($this->hasText): ?>
+	<div class="content m-bottom-x3">
+		<?= $this->text ?>
+	</div>
+	<?php endif; ?>
+</div>
+
+
+<script>
+	window.onresize = function(e){
+    	if (document.querySelector('.heroFW__text').scrollHeight > document.querySelector('.heroFW__text').clientHeight){
+    		document.querySelector('#btnSeeMore').classList.remove('hidden');
+    		document.querySelector('#desc.hasTeaser').classList.remove('hidden');
+    	}
+    	else{
+    		document.querySelector('#btnSeeMore').classList.add('hidden');
+    		document.querySelector('#desc.hasTeaser').classList.add('hidden');
+    	}
+    }
+</script>
