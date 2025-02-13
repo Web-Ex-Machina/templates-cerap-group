@@ -1,0 +1,10 @@
+<?php foreach ($this->body as $class => $row): ?>
+  <?php foreach ($row as $col): ?>
+    <?php if ($col->addImage): ?>
+      <div class="ce_gallery__item flex-column-alignitems--center txt-center zoomin <?= $class ?> <?= $col->class ?>" style="gap:0.5em;">
+        <img src="<?php echo $col->singleSRC ?>" alt="<?php echo $col->alt ?>" <?php echo $col->imgSize ?>>
+        <span class="ft-primary ft-b"><?php echo $col->caption ?></span>
+      </div>
+    <?php endif; ?>
+  <?php endforeach; ?>
+<?php endforeach; ?>

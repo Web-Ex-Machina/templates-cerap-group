@@ -1,0 +1,7 @@
+<div class="<?= $this->class ?> d-grid flex-wrap-justifycontent--center gap-3-em cols-autofit <?= $this->perRow ?>"<?= $this->cssID ?> style="--griditem-minwidth: 100px;">
+<?php $this->block('content'); ?>
+
+  <?= $this->images ?>
+
+<?php $this->endblock(); ?>
+</div>
