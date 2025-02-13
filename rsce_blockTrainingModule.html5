@@ -1,0 +1,61 @@
+<?php
+	// Get the file
+	$arrCrop = deserialize($this->size);
+	$objFile = FilesModel::findByUuid($this->singleSRC) ?: FilesModel::findOneByPath($this->singleSRC);
+	if($objFile) {
+			$strFile = \Image::get($objFile->path, (!$arrCrop[0] && !$arrCrop[1]) ? 1920 : $arrCrop[0] , $arrCrop[1] ?: '', $arrCrop[2] ?: "proportional");
+	}
+
+	// Prepare the main block classes
+	$arrClasses = ['fit--cover','r_2-1','img--center'];
+
+	// Prepare the block wrapper
+	$arrWrapperClasses = ['block-card__wrapper'];
+	if ($this->addRadius) 
+		$arrWrapperClasses[] = 'rad';
+	$strWrapperStart = 'div class="'.implode(' ', $arrWrapperClasses).'"';
+	$strWrapperEnd = 'div';
+	if($this->url && $this->link_mode == 'wrapper') {
+		$strWrapperStart = sprintf('a href="%s" title="%s" class="%s"', $this->url, $this->titleText ?: $this->alt, implode(' ', $arrWrapperClasses));
+		$strWrapperEnd = 'a';
+
+		if($this->target)
+			$strWrapperStart .= ' target="_blank"';
+	}
+?>
+<div class="block-card <?= implode(' ', $arrClasses) ?> <?= $this->class ?>"<?= $this->cssID ?> data-preset="inline">
+	<<?= $strWrapperStart ?>>
+		<?php if ($this->singleSRC): ?>
+			<div class="block-card__figure <?= $this->image_css ?>">
+				<img src="<?= $strFile ?>" alt="<?= $this->alt ?>">
+			</div>
+		<?php endif ?>
+		<?php if($this->text || $this->headline): ?>
+			<div class="block-card__content">
+				<?php if ($this->headline): ?><div class="block-card__title <?= $this->hl ?> <?= $this->title_css ?>"><?= $this->headline ?></div><?php endif; ?>
+				<?php if ($this->text): ?><div class="block-card__text <?= $this->text_css ?>"><?= $this->text ?></div><?php endif; ?>
+				<?php if ($this->link_mode != 'wrapper'): ?>
+				<div class="block-card__actions" style="display: flex; justify-content: flex-end; gap: 0.5em;">
+					<?php if ($this->url): ?>
+						<a href="<?= $this->url ?>" <?= $this->target?' target="_blank"':'' ?> class="btn <?= $this->link_css ?>" title="<?= trim(strip_tags($this->titleText)) ?: trim(strip_tags($this->linkTitle)) ?>"><?= $this->linkTitle ?></a>
+					<?php endif ?>
+					<?php if ($this->form): ?>
+						<button type="button" data-modal="<?= 'modal--form--'.$this->id ?>" class="btn-bg-success">Book a course</button>
+					<?php endif ?>
+				</div>
+				<?php endif ?>
+			</div>
+		<?php endif; ?>
+    </<?= $strWrapperEnd ?>>
+</div>
+<?php if ($this->form): ?>
+	<div class="modalFW<?= $this->content_type == 'picture'?' modalFW--img':'' ?>" 
+	    data-name        = "<?= 'modal--form--'.$this->id ?>"
+	    data-open        = "false"
+	    data-autoload    = "true"
+	    data-autodestroy = "false"
+	    data-refresh     = "false"
+	>
+		{{insert_form::<?php echo $this->form; ?>}}
+	</div>
+<?php endif ?>
