@@ -55,7 +55,7 @@
           </div>
           <?php if ($this->link): ?>
             <div class="block-card__actions">
-                <a href="<?= $this->link ?>" title="<?= $this->headline ?>"<?= ($this->target) ? ' target="_blank"' : '' ?> class="btn-sm icon-last btn-bd-white">Lire l'actualité <i class="fa-solid fa-arrow-right-long"></i></a>
+                <a href="<?= $this->link ?>" title="<?= $this->headline ?>"<?= ($this->target) ? ' target="_blank"' : '' ?> class="btn-sm icon-last btn-bd-white">{{iflng::fr}}Lire l'actualité{{iflng::en}}Read news{{iflng}} <i class="fa-solid fa-arrow-right-long"></i></a>
             </div>
           <?php endif ?>
         </div>
