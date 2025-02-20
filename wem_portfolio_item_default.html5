@@ -55,7 +55,7 @@
       <?php if ($this->jumpTo): ?>
         <div class="block-card__actions">
             <a href="<?= $this->jumpTo ?>" title="<?= $this->title.': '.$GLOBALS['TL_LANG']['MSC']['more'] ?>"<?= ($this->target) ? ' target="_blank"' : '' ?> class="btn-sm icon-last btn-bd-white">
-              Voir le projet <i class="fa-solid fa-arrow-right-long"></i>
+              {{iflng::fr}}Voir le projet{{iflng::en}}See project{{iflng}} <i class="fa-solid fa-arrow-right-long"></i>
             </a>
         </div>
       <?php endif ?>
