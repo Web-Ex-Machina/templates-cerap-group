@@ -2,42 +2,199 @@
 	$pictures = $this->model->getAttributeValue('pictures');
 ?>
 
-<div class="offer__details">
-	<div class="offer__title h2">
-		<?= $this->title ?>
-	</div>
-
-	<?php if ($this->attributes): ?>
-		<div class="offer__attributes">
-			<?php foreach ($this->attributes as $attribute): ?>
-				<?php if ($attribute['label'] && $attribute['human_readable_value']): ?>
-					<div class="offer__attribute">
-						<div class="offer__attribute__title"><?= $attribute['label'] ?></div>
-						<div class="offer__attribute__value"><?= $attribute['human_readable_value'] ?></div>
-					</div>
-				<?php endif ?>
-			<?php endforeach ?>
-		</div>
-	<?php endif ?>
-	<div class="offer__text">
-		<?php if ($this->teaser): ?>
-			<?= $this->teaser ?>
-		<?php endif ?>
-		
-		<?php if ($this->picture): ?>
-		<div class="offer__figure offer__mainPicture">
-			<img src="<?php echo $this->picture['img']['src'] ?>" alt="<?php echo $this->picture['alt']?:'' ?>" />
-		<?php elseif($pictures && count($pictures)>0): ?>
-			<img src="<?php echo $pictures[0]['src'] ?>" alt="<?php echo $pictures[0]['picture']['alt']?:'' ?>" />
+<div class="heroFW splitcontent height--content w-full img--center img--center content__bg--theme ce_rsce_hero" data-height="" style="height:;">
+	<div class="heroFW__wrapper" <?php echo (!$this->picture || !($pictures && count($pictures)>0))?'style="--percent-w-picture: 0;"':'' ?> >
+		<?php if ($this->picture || ($pictures && count($pictures)>0)): ?>
+		<div class="heroFW__figure">
+			<?php if ($this->picture): ?>
+				<img src="<?php echo $this->picture['img']['src'] ?>" alt="<?php echo $this->picture['alt']?:'' ?>" />
+			<?php elseif($pictures && count($pictures)>0): ?>
+				<img src="<?php echo $pictures[0]['src'] ?>" alt="<?php echo $pictures[0]['picture']['alt']?:'' ?>" />
+			<?php endif; ?>
 		</div>
 		<?php endif; ?>
+		<div class="heroFW__content ">
+			<div class="heroFW__content__wrapper">
+				<h1 class="heroFW__title"><?= $this->title ?></h1>                
+				<div class="heroFW__text ft-1-2-em" style="">
+					<div class="d-grid" style="gap:0.35em">
+						<?php if ($this->field): ?>
+							<div class="flex gap-1-em">
+								<div class="offer__attribute__icon txt-center" style="min-width: 1em;">
+									<i class="fa-solid fa-helmet-safety"></i>
+								</div>
+								<div class="offer__attribute__value flex-grow-1">
+									<?php echo $this->field ?>
+								</div>
+							</div>
+						<?php endif ?>
+						<?php if ($this->location): ?>
+							<div class="flex gap-1-em">
+								<div class="offer__attribute__icon txt-center" style="min-width: 1em;">
+									<i class="fa-solid fa-location-dot"></i>
+								</div>
+								<div class="offer__attribute__value flex-grow-1">
+									<?php echo $this->location ?>
+								</div>
+							</div>
+						<?php endif ?>
+						<?php if ($this->code): ?>
+							<div class="flex gap-1-em">
+								<div class="offer__attribute__icon txt-center" style="min-width: 1em;">
+									<i class="fa-solid fa-note-sticky"></i>
+								</div>
+								<div class="offer__attribute__value flex-grow-1">
+									<?php echo $this->code ?>
+								</div>
+							</div>
+						<?php endif ?>
+						<?php if ($this->attributes): ?>
+							<?php foreach ($this->attributes as $attribute): ?>
+								<?php if ($attribute['label'] && $attribute['human_readable_value']): ?>
+									<div class="flex gap-1-em" title="<?= $attribute['label'] ?>">
+										<div class="offer__attribute__icon txt-center" style="min-width: 1em;">
+											<?php 
+												switch ($attribute['label']) {
+													case 'Domaine'     : echo '<i class="fa-solid fa-helmet-safety"></i>'; break;
+													case 'Entité'      : echo '<i class="fa-solid fa-industry"></i>'; break;
+													case 'Localisation': echo '<i class="fa-solid fa-location-dot"></i>'; break;
+													default            : echo '<i class="fa-solid fa-circle-info"></i>'; break;
+												}
+											?>
+										</div>
+										<div class="offer__attribute__value flex-grow-1"><?= $attribute['human_readable_value'] ?></div>
+									</div>
+								<?php endif ?>
+							<?php endforeach ?>
+						<?php endif ?>       
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
-	
-	<?php if($this->canApply): ?>
-	<?php if ('modal' === $this->formDisplay): ?>
-		<button class="btn-sm offer__action" data-process="openApplicationModal" data-offer="<?= $this->id ?>"><?= $GLOBALS['TL_LANG']['WEM']['OFFERS']['byForm'] ?></button>
-	<?php else: ?>
-		<?= $this->form ?>
-	<?php endif; ?>
-	<?php endif; ?>
 </div>
+<div class="offer__details p-y">
+	<div class="offer__left">
+		<div class="offer__text">
+			<?php if ($this->beetween_job_mission): ?>
+				<div class="offer__text__mission">
+					<h2 class="ce_headline_highlighted">Mission</h2>
+					<?= $this->beetween_job_mission ?>
+				</div>
+			<?php endif ?>
+
+			<?php if ($this->beetween_job_profile): ?>
+				<div class="offer__text__profile">
+					<h2 class="ce_headline_highlighted">Profil</h2>
+					<?= $this->beetween_job_profile ?>
+				</div>
+			<?php endif ?>
+
+			<?php
+				$arrBeetweenInfosCheck = [
+					'beetween_contract' => 'Type de contrat',
+					'beetween_contract_duration' => 'Durée du contrat',
+					'beetween_contract_rythm' => 'Rythme de travail',
+					'beetween_contract_starting_date' => 'Date de prise de fonction',
+					'beetween_language' => 'Langage',
+					'beetween_salary' => 'Salaire',
+					'beetween_skills' => 'Compétence(s)',
+					'beetween_qualification' => 'Qualification',
+					'beetween_experience' => 'Expérience',
+					'beetween_studies' => 'Étude(s)',
+					'beetween_schools' => 'École(s)',
+					'beetween_education' => 'Formation',
+				];
+				$hasBeetweenInfos = false;
+				foreach ($arrBeetweenInfosCheck as $key => $label) {
+					if ($this->{$key} != '') {
+						$hasBeetweenInfos = true;
+						break;
+					}
+				}
+			?>
+			<?php if ($hasBeetweenInfos): ?>
+				<div class="offer__text__infos">
+					<h2 class="ce_headline_highlighted">Autres informations</h2>
+					<table class="table table-striped">
+						<?php foreach ($arrBeetweenInfosCheck as $key => $label): ?>
+							<?php if ($this->{$key} != ''): ?>
+								<tr>
+									<td class="ft-b"><?php echo $label ?></td>
+									<td><?php echo $this->{$key} ?></td>
+								</tr>
+							<?php endif ?>
+						<?php endforeach ?>
+					</table>
+				</div>
+			<?php endif ?>
+			
+			<?php if ($this->picture): ?>
+			<div class="offer__figure offer__mainPicture">
+				<img src="<?php echo $this->picture['img']['src'] ?>" alt="<?php echo $this->picture['alt']?:'' ?>" />
+			<?php elseif($pictures && count($pictures)>0): ?>
+				<img src="<?php echo $pictures[0]['src'] ?>" alt="<?php echo $pictures[0]['picture']['alt']?:'' ?>" />
+			</div>
+			<?php endif; ?>
+		</div>
+		<?php if($this->beetween_applicationUrl): ?>
+			<div class="flex-wrap-justifycontent--spacebetween-alignitems--center">
+			    <a href="<?= $this->referer ?>" title="<?= $this->back ?>" class="btn-bd-theme reader__back icon-first"><i class="fa-solid fa-arrow-left-long"></i><?= $this->back ?></a>
+				<a target="_blank" href="<?php echo $this->beetween_applicationUrl ?>" class="btn-bg-theme icon-last offer__action" data-offer="<?= $this->id ?>">Postuler en ligne <i class="fa-solid fa-pen-to-square"></i></a>
+			</div>
+		<?php elseif($this->canApply): ?>
+			<?php if ('modal' === $this->formDisplay): ?>
+				<div class="flex-wrap-justifycontent--spacebetween-alignitems--center">
+				    <a href="<?= $this->referer ?>" title="<?= $this->back ?>" class="btn-bd-theme reader__back icon-first"><i class="fa-solid fa-arrow-left-long"></i><?= $this->back ?></a>
+					<button class="btn-bg-theme icon-last offer__action" data-process="openApplicationModal" data-offer="<?= $this->id ?>">Postuler en ligne <i class="fa-solid fa-pen-to-square"></i></button>
+				</div>
+				
+			<?php else: ?>
+				<?= $this->form ?>
+			    <a href="<?= $this->referer ?>" title="<?= $this->back ?>" class="btn-bd-theme reader__back icon-first center"><i class="fa-solid fa-arrow-left-long"></i><?= $this->back ?></a>
+			<?php endif; ?>
+		<?php endif; ?>
+	</div>
+	<div class="offer__right d-grid">
+		<?php if($this->beetween_applicationUrl): ?>
+			<a target="_blank" href="<?php echo $this->beetween_applicationUrl ?>" class="btn-bg-theme icon-last offer__action" data-offer="<?= $this->id ?>">Postuler en ligne <i class="fa-solid fa-pen-to-square m-left-auto"></i></a>
+		<?php elseif($this->canApply && 'modal' === $this->formDisplay): ?>
+			<button class="btn-bg-theme icon-last offer__action" data-process="openApplicationModal" data-offer="<?= $this->id ?>">Postuler en ligne <i class="fa-solid fa-pen-to-square m-left-auto"></i></button>
+		<?php endif; ?>
+		{{insert_module::27}} <!-- block alerts -->
+		{{insert_module::28}} <!-- block spontaneus application -->
+	</div>
+</div>
+
+<?php if($this->canApply && 'modal' === $this->formDisplay): ?>
+	<script>
+	    var openApplicationModal = function(btn){
+		    return new Promise(function(resolve,reject){
+		      var offer = btn.$el.attr('data-offer');
+		      $.ajax({
+		        timeout: 10000,
+		        url: window.location.pathname,
+		        type: 'post',
+		        data:{
+		          'TL_AJAX': 1,
+		          'module': <?= $this->moduleId ?>,
+		          'action': 'apply',
+		          'offer': offer
+		        },
+		      }).done(function(html){
+		        var modal = new Modal({
+		          name : 'offerApplyModal',
+		          content: html,
+		          onClose: function(){
+		            modal.destroy();
+		          }
+		        }).open();
+		        resolve();
+		      }).fail(function(jqXHR, textStatus){
+		        console.log(jqXHR, textStatus);
+		        reject();
+		      });
+		    });
+	    }
+	</script>
+<?php endif; ?>
