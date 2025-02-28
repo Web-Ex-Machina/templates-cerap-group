@@ -14,7 +14,7 @@
 				<?php echo $this->location ? ' - <span class="ft-nowrap"> '. $this->beetween_location_city .' (' . $this->beetween_location_region2_code . ')</span>' : '' ?>
 			</div>
 			<div class="ft-grey">
-				<?php echo $this->beetween_contract ?> - <?php echo $this->beetween_contract_rythm ?><br>
+				<?php echo $this->beetween_contract ?><br>
 				<?php echo $this->field ?>
 			</div>
 		</div>
