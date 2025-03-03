@@ -5,7 +5,7 @@
               <?= preg_replace('/--(.*)--/','<span class="ft-theme">$1</span>', $this->headline) ?>
             </<?= $this->hl ?>>
         </div>
-        <div class="txt-center">
+        <div class="txt-center hidden-md">
             <?php if($this->link_href): ?>
               <a class="btn icon-last <?= $this->link_classes?:'btn-bd-theme' ?>" href="<?= $this->link_href ?>" title="<?= $this->link_title ?>"<?= $this->link_target ? ' target="_blank"' : '' ?>><?= $this->link_text ?> <i class="fa-solid fa-arrow-right-long"></i></a>
             <?php endif; ?>
