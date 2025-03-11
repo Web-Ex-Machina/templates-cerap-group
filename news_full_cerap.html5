@@ -1,0 +1,87 @@
+<?php
+if ($this->source != 'default'){
+  $this->text = '';
+  $objElement = \ContentModel::findPublishedByPidAndTable($this->id, 'tl_news');
+  if ($objElement !== null) {
+    while ($objElement->next()) {
+     $this->text .= $this->getContentElement($objElement->current());
+    }
+  }
+  $this->hasText = \ContentModel::countPublishedByPidAndTable($this->id, 'tl_news') > 0 || 0 < count($this->enclosure);
+}
+?>
+<div class="layout_full block<?= $this->class ?>">
+
+  <h1 class="sep-bottom ft-notrs"><?= html_entity_decode($this->newsHeadline) ?></h1>
+    <div class="flex-wrap-justifycontent--spacebetween-alignitems--center m-bottom">
+      <?php if ($this->hasMetaFields): ?>
+        <p class="infos" style="margin: 0.5em 0.5em 0.5em 0"><time datetime="<?= $this->datetime ?>"><?= $this->date ?></time> <?= $this->author ?> <?= $this->commentCount ?></p>
+      <?php endif; ?>
+      <div class="share-container"></div>
+    </div>
+
+  <?php if ($this->hasText || $this->teaser): ?>
+    <?php if ($this->addImage && !$this->hasText): ?>
+    <div class="row">
+      <div class="col-md-6 col-sm-12">
+        <figure class="image_container<?= $this->floatClass ?>"<?php if ($this->margin): ?> style="<?= $this->margin ?>"<?php endif; ?>>
+
+          <?php if ($this->href): ?>
+            <a href="<?= $this->href ?>"<?= $this->attributes ?> title="<?= $this->alt ?>">
+          <?php endif; ?>
+
+          <?php $this->insert('picture_default', $this->picture); ?>
+
+          <?php if ($this->href): ?>
+            </a>
+          <?php endif; ?>
+
+          <?php if ($this->caption): ?>
+            <figcaption class="caption"><?= $this->caption ?></figcaption>
+          <?php endif; ?>
+
+        </figure>
+      </div>
+      <div class="col-md-6 col-sm-12">
+    <?php endif; ?>
+
+
+    <?php if ($this->hasSubHeadline): ?>
+      <h2><?= $this->subHeadline ?></h2>
+    <?php endif; ?>
+
+    <?php if ($this->hasText): ?>
+      <?= html_entity_decode($this->text) ?>
+    <?php else: ?>
+      <div class="ce_text block">
+        <?= html_entity_decode($this->teaser) ?>
+      </div>
+    <?php endif; ?>
+
+    <?php if ($this->addImage && !$this->hasText): ?>
+      </div>
+    </div>
+    <?php endif; ?>
+  <?php endif; ?>
+  <?php if($this->addEnclosure && $this->link): ?>
+    <!-- <iframe src="<?= $this->enclosure[0]['enclosure'] ?: $this->link ?>" style=" height: 90vh; width: 100%;" class="custom m-bottom" frameborder="0"></iframe> -->
+    <object data="<?= $this->enclosure[0]['enclosure'] ?: $this->link ?>" type="application/pdf"  style=" height: 90vh; width: 100%;" class="custom m-bottom" frameborder="0">
+     <p>
+       {{iflng::en}} Your browser doesn't allow pdf viewing. Please click the link below to download the document.
+       {{iflng::fr}} Votre navigateur n'autorise pas la visualisation de pdf. Veuillez cliquer sur le lien ci-dessous pour télécharger le document.
+       {{iflng}}
+     </p>
+   </object>
+  <?php endif; ?>
+  <?php if ($this->addEnclosure && $this->link): ?>
+    <div class="enclosure">
+      <?php if($this->enclosure): ?>
+      <?php foreach ($this->enclosure as $enclosure): ?>
+        <p><?= Image::getHtml($enclosure['icon'], '', 'class="mime_icon"') ?> <a href="<?= $enclosure['href'] ?>" title="<?= $enclosure['title'] ?>"><?= $enclosure['link'] ?> <span class="size">(<?= $enclosure['filesize'] ?>)</span></a></p>
+      <?php endforeach; ?>
+      <?php else: ?>
+        <p><?= Image::getHtml('assets/contao/images/iconPDF.svg', '', 'class="mime_icon"') ?> <a href="<?= $this->link ?>" title="<?= html_entity_decode($this->newsHeadline) ?>"><?= html_entity_decode($this->newsHeadline) ?></a></p>
+      <?php endif; ?>
+    </div>
+  <?php endif; ?>
+</div>
