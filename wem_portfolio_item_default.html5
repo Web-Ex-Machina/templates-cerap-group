@@ -2,17 +2,17 @@
   // Weird way to retrieve the correct image
   // but it's easier like this
   if(false !== strpos($this->attributes['entity']['raw_value'], "ADVANCE")) {
-    $strLogo = 'subsidiaries/Logo_ADVANCE';
+    $strLogo = 'subsidiaries/Logo_ADVANCE-Engineering';
   } else if (false !== strpos($this->attributes['entity']['raw_value'], "ATRON")) {
-    $strLogo = 'subsidiaries/Logo_ATRON';
+    $strLogo = 'subsidiaries/Logo_ATRON-Metrology';
   } else if (false !== strpos($this->attributes['entity']['raw_value'], "Prévention")) {
-    $strLogo = 'subsidiaries/Logo_CERAP-FR';
+    $strLogo = 'subsidiaries/Logo_CERAP-Prévention';
   } else if (false !== strpos($this->attributes['entity']['raw_value'], "UK")) {
     $strLogo = 'subsidiaries/Logo_CERAP-UK';
   } else if (false !== strpos($this->attributes['entity']['raw_value'], "Switzerland")) {
-    $strLogo = 'subsidiaries/Logo_CERAP-CH';
+    $strLogo = 'subsidiaries/Logo_CERAP-Switzerland';
   } else if (false !== strpos($this->attributes['entity']['raw_value'], "SEFC")) {
-    $strLogo = 'subsidiaries/Logo_SEFC';
+    $strLogo = 'subsidiaries/Logo_SEFC-Formation';
   } else if (false !== strpos($this->attributes['entity']['raw_value'], "NUSAM")) {
     $strLogo = 'subsidiaries/Logo_NUSAM';
   } else {
