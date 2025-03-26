@@ -1,9 +1,8 @@
 <?php
 	$pictures = $this->model->getAttributeValue('pictures');
 ?>
-
 <div class="heroFW splitcontent height--content w-full img--center img--center content__bg--theme ce_rsce_hero" data-height="" style="height:;">
-	<div class="heroFW__wrapper" <?php echo (!$this->picture || !($pictures && count($pictures)>0))?'style="--percent-w-picture: 0;"':'' ?> >
+	<div class="heroFW__wrapper" <?php echo (!$this->picture && !($pictures && count($pictures)>0))?'style="--percent-w-picture: 0;"':'' ?> >
 		<?php if ($this->picture || ($pictures && count($pictures)>0)): ?>
 		<div class="heroFW__figure">
 			<?php if ($this->picture): ?>
@@ -13,10 +12,11 @@
 			<?php endif; ?>
 		</div>
 		<?php endif; ?>
+		
 		<div class="heroFW__content ">
 			<div class="heroFW__content__wrapper">
 				<h1 class="heroFW__title"><?= $this->title ?></h1>                
-				<div class="heroFW__text ft-1-2-em" style="">
+				<div class="heroFW__text ft-1-2-em" style="position: relative; min-height: 150px;">
 					<div class="d-grid" style="gap:0.35em">
 						<?php if ($this->field): ?>
 							<div class="flex gap-1-em">
@@ -38,13 +38,13 @@
 								</div>
 							</div>
 						<?php endif ?>
-						<?php if ($this->code): ?>
+						<?php if ($this->beetween_ref): ?>
 							<div class="flex gap-1-em">
 								<div class="offer__attribute__icon txt-center" style="min-width: 1em;">
 									<i class="fa-solid fa-note-sticky"></i>
 								</div>
 								<div class="offer__attribute__value flex-grow-1">
-									<?php echo $this->code ?>
+									<?php echo $this->beetween_ref ?>
 								</div>
 							</div>
 						<?php endif ?>
@@ -66,8 +66,42 @@
 									</div>
 								<?php endif ?>
 							<?php endforeach ?>
-						<?php endif ?>       
+						<?php endif ?>      
+						<?php if($this->entity): ?>
+							<?php 
+							  // Weird way to retrieve the correct image
+							  // but it's easier like this
+							  if(false !== strpos($this->entity, "ADVANCE")) {
+							    $strLogo = 'subsidiaries/Logo_ADVANCE-Engineering';
+							  } else if (false !== strpos($this->entity, "ATRON")) {
+							    $strLogo = 'subsidiaries/Logo_ATRON-Metrology';
+							  } else if (false !== strpos($this->entity, "Prévention")) {
+							    $strLogo = 'subsidiaries/Logo_CERAP-Prévention';
+							  } else if (false !== strpos($this->entity, "UK")) {
+							    $strLogo = 'subsidiaries/Logo_CERAP-UK';
+							  } else if (false !== strpos($this->entity, "Switzerland")) {
+							    $strLogo = 'subsidiaries/Logo_CERAP-Switzerland';
+							  } else if (false !== strpos($this->entity, "SEFC")) {
+							    $strLogo = 'subsidiaries/Logo_SEFC-Formation';
+							  } else if (false !== strpos($this->entity, "NUSAM")) {
+							    $strLogo = 'subsidiaries/Logo_NUSAM';
+							  } else {
+							    $strLogo = 'Logo_CERAP';
+							  }
+							?>
+							<div class="flex gap-1-em">
+								<div class="offer__attribute__icon txt-center" style="min-width: 1em;">
+									<i class="fa-solid fa-building"></i>
+								</div>
+								<div class="offer__attribute__value flex-grow-1">
+									<?php echo $this->entity ?>
+								</div>
+							</div>
+						<?php endif; ?> 
 					</div>
+					<?php if ($this->entity): ?>
+	          			<img src="files/media/logos/<?php echo $strLogo ?>.png" alt="<?php echo $this->entity ?>" style="width: 150px; position: absolute; right: 0; bottom: 0; background: rgba(255, 255, 255, 0.6);" />
+					<?php endif ?>
 				</div>
 			</div>
 		</div>
