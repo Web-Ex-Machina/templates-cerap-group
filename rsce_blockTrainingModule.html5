@@ -40,7 +40,7 @@
 						<a href="<?= $this->url ?>" <?= $this->target?' target="_blank"':'' ?> class="btn <?= $this->link_css ?>" title="<?= trim(strip_tags($this->titleText)) ?: trim(strip_tags($this->linkTitle)) ?>"><?= $this->linkTitle ?></a>
 					<?php endif ?>
 					<?php if ($this->form): ?>
-						<button type="button" data-modal="<?= 'modal--form--'.$this->id ?>" class="btn-bg-success">Book a course</button>
+						<button type="button" data-modal="<?= 'modal--form--'.$this->id ?>" class="btn-bg-success">{{iflng::en}}Register your interest{{iflng::fr}}Manifestez votre intérêt{{iflng}}</button>
 					<?php endif ?>
 				</div>
 				<?php endif ?>
