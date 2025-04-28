@@ -124,7 +124,7 @@
 						el.classList.remove('loading');
 					    el.list.innerHTML = '';
 					    // for(var item of data.member){
-						if (data.totalItems > 0) {
+						if (data.member.length > 0) {
 						    for(var item of data.member.slice(0,5)){
 						    	$(el.list).append(`<option value="${item.name}" lat="${item.latitude}" lng="${item.longitude}"></option>`)
 						    }
@@ -141,7 +141,7 @@
 						el.parentElement.setAttribute('tooltip','Erreur: '+textStatus);
 						el.classList.remove('loading');
 					});
-				},100);
+				},500);
 			})
 			el.addEventListener('change',function(){
 				el.blur();
