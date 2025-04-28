@@ -81,8 +81,11 @@
 						<?php if ('location' != $c['name']): ?>
 							<input type="text" class="" name="<?= $c['name']; ?>" value="<?= $c['value']; ?>" placeholder="<?= $c['placeholder']; ?>" />
 						<?php else: ?>
-							<input type="text" list="geocities__results" autocomplete=off class="geocities" name="<?= $c['name']; ?>" value="<?= $c['value']; ?>" placeholder="{{iflng::en}}Location{{iflng::fr}}Localisation{{iflng}}"  />
-							<datalist id="geocities__results"></datalist>
+							<div class="form-group">
+								<input type="text" list="geocities__results" autocomplete=off class="geocities" name="<?= $c['name']; ?>" value="<?= $c['value']; ?>" placeholder="{{iflng::en}}Location{{iflng::fr}}Localisation{{iflng}}"  />
+								<div class="loader"><i class="fa-regular fa-spinner fa-spin"></i></div>
+								<datalist id="geocities__results"></datalist>
+							</div>
 							<input type="hidden" name="lat" value="">
 							<input type="hidden" name="lng" value="">
 							<div class="form-group geocities__radius hidden">
@@ -109,6 +112,7 @@
 			el.addEventListener('keyup',function(){
 				clearTimeout(timerInput);
 				timerInput = setTimeout(function(){
+					el.classList.add('loading');
 					$.ajax({
 					    timeout: 10000,
 					    url: window.location.origin+'/api/geocities/cities',
@@ -117,13 +121,25 @@
 					        'name': el.value
 					    },
 					}).done(function(data){
+						el.classList.remove('loading');
 					    el.list.innerHTML = '';
 					    // for(var item of data.member){
-					    for(var item of data.member.slice(0,5)){
-					    	$(el.list).append(`<option value="${item.name}" lat="${item.latitude}" lng="${item.longitude}"></option>`)
-					    }
+						if (data.totalItems > 0) {
+						    for(var item of data.member.slice(0,5)){
+						    	$(el.list).append(`<option value="${item.name}" lat="${item.latitude}" lng="${item.longitude}"></option>`)
+						    }
+							if (data.member.length > 1 && document.activeElement == el) 
+								el.parentElement.setAttribute('tooltip','Veuillez selectionner une entrée ci dessous');
+							else
+								el.parentElement.removeAttribute('tooltip');
+						} else {
+							el.parentElement.setAttribute('tooltip','Aucune localisation trouvée pour "'+el.value+'"');
+						}
+
 					}).fail(function(jqXHR, textStatus){
 						console.log(jqXHR,textStatus);
+						el.parentElement.setAttribute('tooltip','Erreur: '+textStatus);
+						el.classList.remove('loading');
 					});
 				},100);
 			})
