@@ -113,14 +113,14 @@
 			<?php if ($this->beetween_job_mission): ?>
 				<div class="offer__text__mission">
 					<h2 class="ce_headline_highlighted">Mission</h2>
-					<?= $this->beetween_job_mission ?>
+					<?= html_entity_decode($this->beetween_job_mission) ?>
 				</div>
 			<?php endif ?>
 
 			<?php if ($this->beetween_job_profile): ?>
 				<div class="offer__text__profile">
 					<h2 class="ce_headline_highlighted">Profil</h2>
-					<?= $this->beetween_job_profile ?>
+					<?= html_entity_decode($this->beetween_job_profile) ?>
 				</div>
 			<?php endif ?>
 
