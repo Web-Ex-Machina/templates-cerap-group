@@ -102,13 +102,15 @@
 		<h2 class="ce_headline_highlighted">{{iflng::fr}}Réalisations similaires{{iflng}}{{ifnlng::fr}}Similar projects{{ifnlng}}</h2>
 		<?php
 			$objModel = ModuleModel::findByPk(59);
-			$objModel->wem_portfolio_constraints = serialize([
-				'tl_wem_portfolio.pid = ' . $this->pid,
-				'tl_wem_portfolio.id != ' . $this->id
-			]);
+			if($objModel) {
+				$objModel->wem_portfolio_constraints = serialize([
+					'tl_wem_portfolio.pid = ' . $this->pid,
+					'tl_wem_portfolio.id != ' . $this->id
+				]);
 
-			$objModule = new \WEM\PortfolioBundle\Module\ModulePortfoliosList($objModel);
-			echo $objModule->generate();
+				$objModule = new \WEM\PortfolioBundle\Module\ModulePortfoliosList($objModel);
+				echo $objModule->generate();
+			}
 		?>
 	</div>
 </div>
