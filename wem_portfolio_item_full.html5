@@ -63,7 +63,7 @@
 		</div>
 	</div>
 
-	{{insert_module::3}} <!-- breadcrumb -->
+	{{insert_module::26}} <!-- breadcrumb -->
 
 	<?php if ($this->attributes['video'] && $this->attributes['video']['raw_value']): ?>
 		<div class="video m-bottom-x3" id="video">
@@ -101,16 +101,14 @@
 	<div class="similar-projects m-bottom-x3" id="similar-projects">
 		<h2 class="ce_headline_highlighted">{{iflng::fr}}Réalisations similaires{{iflng}}{{ifnlng::fr}}Similar projects{{ifnlng}}</h2>
 		<?php
-			$objModel = ModuleModel::findByPk(59);
-			if($objModel) {
-				$objModel->wem_portfolio_constraints = serialize([
-					'tl_wem_portfolio.pid = ' . $this->pid,
-					'tl_wem_portfolio.id != ' . $this->id
-				]);
+			$objModel = ModuleModel::findByPk(54);
+			$objModel->wem_portfolio_constraints = serialize([
+				'tl_wem_portfolio.pid = ' . $this->pid,
+				'tl_wem_portfolio.id != ' . $this->id
+			]);
 
-				$objModule = new \WEM\PortfolioBundle\Module\ModulePortfoliosList($objModel);
-				echo $objModule->generate();
-			}
+			$objModule = new \WEM\PortfolioBundle\Module\ModulePortfoliosList($objModel);
+			echo $objModule->generate();
 		?>
 	</div>
 </div>
