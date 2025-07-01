@@ -49,7 +49,7 @@
       <?php endif; ?>
         </figure>
         <div class="block-card__content">
-          <div class="block-card__title" itemprop="name"><?= $this->headline ?></div>
+          <div class="block-card__title" itemprop="name"><?= html_entity_decode($this->headline) ?></div>
           <div class="block-card__text" itemprop="description">
             <?= strip_tags($this->teaser) ?>
           </div>
