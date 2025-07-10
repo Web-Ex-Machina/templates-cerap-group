@@ -1,0 +1,33 @@
+
+  <?php foreach ($this->items as $item): ?>
+    <?php 
+      // $item['pageImageOverwriteMeta'] => boolean, allows reading variable listed below
+      // $item['pageImageAlt'] => string, alt text for image
+      // $item['pageImageTitle']  => string, title for image
+      $objFile = null;
+      $imgHtml = '';
+        $imagesAsArray = \Contao\StringUtil::deserialize($item['pageImage'],[]); 
+      if(!empty($imagesAsArray)){
+        $uuid = $imagesAsArray[0];
+        $objFile = \Contao\FilesModel::findOneByUuid($uuid);
+        $imgHtml = \Contao\Image::getHtml($objFile->path);
+      }
+    ?>
+    <div class="block-card <?= $item['class'] ?>">
+      <<?php echo $item['href']?'a href="'.$item['href'].'"':'div' ?> class="block-card__wrapper" title="<?= $item['pageTitle'] ?: $item['title'] ?>" <?php if ('' !== $item['accesskey']): ?> accesskey="<?= $item['accesskey'] ?>"<?php endif; ?><?php if ($item['tabindex']): ?> tabindex="<?= $item['tabindex'] ?>"<?php endif; ?><?= $item['target'] ?><?= $item['rel'] ?? '' ?>>
+        <?php if ($imgHtml != ''): ?>
+          <div class="block-card__figure">
+            <?php echo $imgHtml ?>
+          </div>
+        <?php endif ?>
+        <div class="block-card__content">
+          <div class="block-card__title h2 m-top-auto txt-balance txt-center"><?= $item['link'] ?></div>
+          <?php if ($item['description']): ?>
+            <div class="block-card__text">
+              <p><?php echo $item['description'] ?></p>
+            </div>
+          <?php endif ?>
+        </div>
+      </<?php echo $item['href']?'a':'div' ?>>
+    </div>
+  <?php endforeach; ?>
