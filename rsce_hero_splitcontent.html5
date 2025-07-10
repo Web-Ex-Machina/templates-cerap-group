@@ -3,7 +3,10 @@
   $arrCrop = deserialize($this->image_size);
   $objFile = FilesModel::findByUuid($this->singleSRC);
   $strFile = \Image::get($objFile->path, (!$arrCrop[0] && !$arrCrop[1]) ? 1920 : $arrCrop[0] , $arrCrop[1] ?: '', $arrCrop[2] ?: "proportional");
-  $isVideo = strstr(mime_content_type($objFile->path), "video/")?true:false;
+  if ($objFile->path)
+    $isVideo = strstr(mime_content_type($objFile->path?:'null'), "video/")?true:false;
+  else
+    $isVideo = false;
 
   // Prepare the main block classes
   $arrClasses = ['splitcontent','height--content','w-full'];
