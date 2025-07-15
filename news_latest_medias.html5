@@ -97,7 +97,7 @@
             <?php if ($isVideo): ?>
               <a href="<?= $this->link ?>"<?= ($this->source == 'external' && $this->target) ? ' target="_blank"' : '' ?> id="news-<?= $this->id ?>" title="<?= $this->headline ?>" class="ft-2-em"><i class="fa-light fa-circle-play"></i></a>
             <?php else: ?>
-              <a href="<?= $this->link ?>" id="news-<?= $this->id ?>" title="<?= $this->headline ?>"<?= ($this->target) ? ' target="_blank"' : '' ?> class="btn-sm icon-last btn-bd-white">Voir <i class="fa-solid fa-arrow-right-long"></i></a>
+              <a href="<?= $this->link ?>" id="news-<?= $this->id ?>" title="<?= $this->headline ?>"<?= ($this->target) ? ' target="_blank"' : '' ?> class="btn-sm icon-last btn-bd-white">{{iflng::fr}}Voir{{iflng::en}}Read more{{iflng}} <i class="fa-solid fa-arrow-right-long"></i></a>
             <?php endif ?>
           </div>
         <?php endif ?>
