@@ -3,7 +3,7 @@
 
 <?php $this->block('content'); ?>
   <?php if ($this->filters): ?>
-	<form class="offers__filters__form" data-fdm="true" action="{{env::request}}" method="GET">
+	<form class="offers__filters__form" data-fdm="true" action="<?= $this->action ?>" method="GET">
   	<div class="offers__filters block-std m-bottom-0">
   		<b>Chercher une offre</b>
 	  	<?php foreach ($this->filters as $f): ?>
