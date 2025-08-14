@@ -43,7 +43,7 @@
 	<div class="portfolio__attributes w-full">
 		<div class="content--left">
 			<div class="content--left__wrapper">
-				<span class="ft-1-2-em flex-wrap" style="gap: 0.25em;">
+				<span class="ft-1-2-em flex-wrap-justifycontent--flexend" style="gap: 0.25em;">
 					<?php foreach (explode(',', $this->attributes['tags']['raw_value']) as $t) {echo '<span class="tag">'.$t.'</span>';}; ?>
 				</span>
 			</div>
