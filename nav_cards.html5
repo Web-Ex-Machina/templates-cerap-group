@@ -13,7 +13,7 @@
         $imgHtml = \Contao\Image::getHtml($objFile->path);
       }
     ?>
-    <div class="block-card <?= $item['class'] ?>">
+    <div class="block-card <?= $item['class'] ?>" data-maxlines="4">
       <<?php echo $item['href']?'a href="'.$item['href'].'"':'div' ?> class="block-card__wrapper" title="<?= $item['pageTitle'] ?: $item['title'] ?>" <?php if ('' !== $item['accesskey']): ?> accesskey="<?= $item['accesskey'] ?>"<?php endif; ?><?php if ($item['tabindex']): ?> tabindex="<?= $item['tabindex'] ?>"<?php endif; ?><?= $item['target'] ?><?= $item['rel'] ?? '' ?>>
         <?php if ($imgHtml != ''): ?>
           <div class="block-card__figure">
