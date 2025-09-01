@@ -1,0 +1,11 @@
+
+<?php $this->block('content'); ?>
+  <div class="<?= $this->class ?> d-grid cols-autofill gap-1" style="--griditem-minwidth: 36ch">
+    <?php if (empty($this->articles)): ?>
+      <p class="empty"><?= $this->empty ?></p>
+    <?php else: ?>
+      <?= implode('', $this->articles) ?>
+    <?php endif; ?>
+  </div>
+  <?= $this->pagination ?>
+<?php $this->endblock(); ?>
