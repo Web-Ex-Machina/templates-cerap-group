@@ -1,0 +1,24 @@
+<?php
+  // Prepare the main block classes
+  $arrClasses = ['fit--cover', 'r_1-1', 'img--center'];
+?>
+<div class="ce_rsce_quote  <?= $this->class ?> <?= implode(' ', $arrClasses)  ?> ">
+    <div class="quote__picture img-container rounded-circle">
+      <?php if ($this->singleSRC): ?>
+          <img src="<?= $this->singleSRC['path'] ?>" alt="<?= $this->alt ?: $this->title.', '.$this->positionForPortrait ?>" itemprop="image">
+      <?php endif; ?>
+    </div>
+  <div class="quote__content">
+    <div class="quote__content__author">
+      <span class=ft-theme><?php echo $this->title ?></span><br>
+      <span><?php echo $this->positionForPortrait ?></span>
+    </div>
+    <div class="quote__content__text ">
+      <i class="fa-regular fa-comment-quote quote__icon"></i>
+      <?php if ($this->jumpTo): ?>
+          <a href="<?= $this->jumpTo ?>" <?= $this->target?' target="_blank"':'' ?> class="btn-hexa btn-bg-theme <?= $this->link_css ?>" title="{{iflng::fr}}En savoir plus sur {{iflng::en}}Read more about{{iflng}}<?php echo $this->title ?>"><i class="fa-regular fa-arrow-right-long"></i></a>
+      <?php endif ?>
+      <?= $this->teaser ?>
+    </div>
+  </div>
+</div>
