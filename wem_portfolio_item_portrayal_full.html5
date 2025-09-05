@@ -1,0 +1,78 @@
+
+<div id="cols--3__wrapper" class="portfolio_full m-bottom block<?= $this->class ?>" itemscope itemtype="http://schema.org/Article">
+	<div id="cols--3__main">
+		<div class="heroFW splitcontent reader height--content w-full img--center img--center content__bg--aquamarine ce_rsce_hero m-bottom-0" data-height="" style="height:;">
+			<div class="heroFW__wrapper">
+				<?php if ($this->singleSRC): ?>
+				<div class="heroFW__figure">
+					    <img src="<?= $this->singleSRC['path'] ?>" alt="<?= $this->alt ?: $this->title ?>" itemprop="image">
+				</div>
+				<?php endif; ?>
+				<div class="heroFW__content ">
+					<div class="heroFW__content__wrapper">
+						<h1 class="heroFW__title"><?= $this->title ?></h1>                
+						<div class="heroFW__text" style="">
+							<table style="border-collapse: collapse; width: 100%;" border="0">
+								<tbody>
+									<?php if ($this->entityForPortrait): ?>
+									<tr style="height: 20.125px;">
+										<td style="width: 49.6869%; height: 20.125px;">{{fa::building}}</td>
+										<td style="width: 49.6869%; height: 20.125px;"><?php echo $this->entityForPortrait ?></td>
+									</tr>
+									<?php endif ?>         
+									<?php if ($this->positionForPortrait): ?>
+									<tr style="height: 19px;">
+										<td style="width: 49.6869%; height: 19px;">{{fa::helmet-safety}}</td>
+										<td style="width: 49.6869%; height: 19px;"><?php echo $this->positionForPortrait ?></td>
+									</tr>
+									<?php endif ?>         
+									<?php if ($this->locationForPortrait): ?>
+									<tr style="height: 19.0469px;">
+										<td style="width: 49.6869%; height: 19.0469px;">{{fa::location-dot}}</td>
+										<td style="width: 49.6869%; height: 19.0469px;"><?php echo $this->locationForPortrait ?></td>
+									</tr>
+									<?php endif ?>         
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+	{{insert_module::3}} <!-- breadcrumb -->
+
+	<?php if ($this->hasText): ?>
+		<aside id="cols--3__left">
+			<div class="content m-bottom-0 m-top">
+				<?= $this->text ?>
+			</div>
+		</aside>
+	<?php endif; ?>
+
+	<aside id="cols--3__right">
+		<div class="inside">
+			<div class="d-grid cols-1">
+				{{insert_module::34}} <!-- Offres - Filters -->
+				{{insert_module::27}} <!-- Block alert offers -->
+				{{insert_module::28}} <!-- Block spontaneux application -->
+			</div>
+		</div>
+	</aside>
+</div>
+
+
+<script>
+	window.onresize = function(e){
+    	if (document.querySelector('.heroFW__text').scrollHeight > document.querySelector('.heroFW__text').clientHeight){
+    		document.querySelector('#btnSeeMore').classList.remove('hidden');
+    		document.querySelector('#desc.hasTeaser').classList.remove('hidden');
+    	}
+    	else{
+    		document.querySelector('#btnSeeMore').classList.add('hidden');
+    		document.querySelector('#desc.hasTeaser').classList.add('hidden');
+    	}
+    }
+</script>
