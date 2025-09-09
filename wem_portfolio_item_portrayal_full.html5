@@ -52,12 +52,12 @@
 		</aside>
 	<?php endif; ?>
 
-	<aside id="cols--3__right">
+	<aside id="cols--3__right hidden">
 		<div class="inside">
 			<div class="d-grid cols-1">
-				{{insert_module::34}} <!-- Offres - Filters -->
-				{{insert_module::27}} <!-- Block alert offers -->
-				{{insert_module::28}} <!-- Block spontaneux application -->
+				{{insert_module::_19}} <!-- Offres - Filters -->
+				{{insert_module::_20}} <!-- Block alert offers -->
+				{{insert_module::_28}} <!-- Block spontaneux application -->
 			</div>
 		</div>
 	</aside>
