@@ -11,7 +11,7 @@
   <div class="quote__content">
     <div class="quote__content__author">
       <span class=ft-theme><?php echo $this->title ?></span><br>
-      <span><?php echo $this->positionForPortrait ?></span>
+      <span class="quote__content__position"><?php echo $this->positionForPortrait ?></span>
     </div>
     <div class="quote__content__text ">
       <i class="fa-regular fa-comment-quote quote__icon"></i>
