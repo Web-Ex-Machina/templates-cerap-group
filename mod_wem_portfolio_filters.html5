@@ -23,9 +23,7 @@
             <script>document.querySelector('.portfolio__filters__active').classList.add('hidden');</script>
         <?php endif ?>
     </div>
-<?php endif ?>
-<div class="<?php echo $this->class ?> portfolio__filters"><?php echo $this->cssID ?>
-    <?php if ($this->filters): ?>
+    <div class="<?php echo $this->class ?> portfolio__filters"><?php echo $this->cssID ?>
         <form action="{{env::request}}" method="GET" class="nav p-bottom-0" id="form-filters-<?php echo $this->id ?>">
             <?php foreach ($this->filters as $f): ?>
                 <?php if ($f['name'] != 'search'): ?>
@@ -140,5 +138,5 @@
                 })
             }
         </script>
-    <?php endif; ?>
-</div>
+    </div>
+<?php endif; ?>
