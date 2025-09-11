@@ -1,0 +1,41 @@
+<ul class="<?= $this->level ?>">
+  <?php foreach ($this->items as $item): ?>
+  <?php 
+	// $item['pageImageOverwriteMeta'] => boolean, allows reading variable listed below
+	// $item['pageImageAlt'] => string, alt text for image
+	// $item['pageImageTitle']  => string, title for image
+	$objFile = null;
+	$imgHtml = '';
+    $imagesAsArray = \Contao\StringUtil::deserialize($item['pageImage'],[]); 
+	if(!empty($imagesAsArray)){
+		$uuid = $imagesAsArray[0];
+		$objFile = \Contao\FilesModel::findOneByUuid($uuid);
+		$imgHtml = '<div class="pageimage">'.\Contao\Image::getHtml($objFile->path).'</div>';
+	}
+	
+	?>
+    <?php if ($item['isActive']): ?>
+      <li class="<?= $item['class'] ?> <?php echo strpos($item['class'], 'megamenu')?'hover_':'' ?>"><strong class="<?= $item['class'] ?>"<?php if (!empty($item['subitems'])): ?> aria-haspopup="true"<?php endif; ?>><?= $item['link'] ?></strong>
+        <?php if(strpos($item['class'], 'megamenu')): ?>
+          <?= preg_replace('/(<ul class="(level_.*)">)(.*)(<\/ul>)+$/Us', '$1'.$imgHtml.'<div class="megamenu__wrapper"> $3 </div> $4', 
+              preg_replace('/class="(level_.*)"/Us','class="$1 megamenu"',$item['subitems'])) 
+              ?? '' 
+          ?>
+        <?php else: ?>
+          <?= $item['subitems'] ?? '' ?>
+        <?php endif; ?>
+      </li>
+    <?php else: ?>
+      <li<?php if ($item['class']): ?> class="<?= $item['class'] ?> <?php echo strpos($item['class'], 'megamenu')?'hover_':'' ?>"<?php endif; ?>><a href="<?= $item['href'] ?: './' ?>" title="<?= $item['pageTitle'] ?: $item['title'] ?>"<?php if ($item['class']): ?> class="<?= $item['class'] ?>"<?php endif; ?><?php if ('' !== $item['accesskey']): ?> accesskey="<?= $item['accesskey'] ?>"<?php endif; ?><?php if ($item['tabindex']): ?> tabindex="<?= $item['tabindex'] ?>"<?php endif; ?><?= $item['target'] ?><?= $item['rel'] ?? '' ?><?php if (!empty($item['subitems'])): ?> aria-haspopup="true"<?php endif; ?>><?= $item['link'] ?></a>
+        <?php if(strpos($item['class'], 'megamenu')): ?>
+          <?= preg_replace('/(<ul class="(level_.*)">)(.*)(<\/ul>)+$/Us', '$1'.$imgHtml.'<div class="megamenu__wrapper"> $3 </div> $4', 
+              preg_replace('/class="(level_.*)"/Us','class="$1 megamenu"',$item['subitems'])) 
+              ?? '' 
+          ?>
+        <?php else: ?>
+          <?= $item['subitems'] ?? '' ?>
+        <?php endif; ?>
+      </li>
+    <?php endif; ?>
+  <?php endforeach; ?>
+</ul>
