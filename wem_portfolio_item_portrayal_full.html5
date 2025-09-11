@@ -42,7 +42,7 @@
 	</div>
 
 
-	{{insert_module::3}} <!-- breadcrumb -->
+	{{insert_module::18}} <!-- breadcrumb -->
 
 	<?php if ($this->hasText): ?>
 		<aside id="cols--3__left">
@@ -55,9 +55,9 @@
 	<aside id="cols--3__right">
 		<div class="inside">
 			<div class="d-grid cols-1">
-				{{insert_module::34}} <!-- Offres - Filters -->
-				{{insert_module::27}} <!-- Block alert offers -->
-				{{insert_module::28}} <!-- Block spontaneux application -->
+				{{insert_module::_32}} <!-- Offres - Filters -->
+				{{insert_module::_31}} <!-- Block alert offers -->
+				{{insert_module::_28}} <!-- Block spontaneux application -->
 			</div>
 		</div>
 	</aside>

@@ -19,7 +19,7 @@
 		</div>
 	</div>
 
-	{{insert_module::3}} <!-- breadcrumb -->
+	{{insert_module::18}} <!-- breadcrumb -->
 
 	<?php if ($this->attributes['video'] && $this->attributes['video']['raw_value']): ?>
 		<div class="video m-bottom-x3" id="video">
