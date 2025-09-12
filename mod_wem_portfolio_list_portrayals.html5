@@ -11,7 +11,6 @@
 			<div class="d-grid cols-2 cols-md-1 gap-3 auto-rows m-y">
 				<?= implode('', $this->items) ?>
 			</div>
-			<pre><?php dump($this->getData()); ?></pre>
 			<?php if ($this->pagination): ?>
 				<div class="m-top-x2">
 					<?= $this->pagination ?>
