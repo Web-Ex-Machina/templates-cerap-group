@@ -1,5 +1,5 @@
 <!-- indexer::stop -->
-<nav class="<?= $this->class ?> d-grid cols-autofill gap-2-em auto-rows block"<?= $this->cssID ?>style="--griditem-minwidth:40ch; <?= $this->style ?>" itemscope itemtype="http://schema.org/SiteNavigationElement">
+<nav class="<?= $this->class ?> d-grid cols-autofill gap-2-em auto-rows block"<?= $this->cssID ?>style="--griditem-minwidth:30ch; <?= $this->style ?>" itemscope itemtype="http://schema.org/SiteNavigationElement">
 
   <?= $this->items ?>
 
