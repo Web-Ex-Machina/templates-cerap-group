@@ -1,0 +1,40 @@
+<div class="portfolio_item block-card r_2-1 block content__bg--greylighter <?= $this->class ?>"<?= $this->cssID ?> itemscope itemtype="http://schema.org/Article">
+  <div class="block-card__wrapper">
+    <div class="block-card__figure">
+      <?php if ($this->singleSRC): ?>
+          <img src="<?= $this->singleSRC['path'] ?>" alt="<?= $this->alt ?: $this->title ?>" itemprop="image">
+      <?php endif; ?>
+    </div>
+    <div class="block-card__content txt-center">
+      <div class="block-card__title"> <?php echo $this->title ?> </div>
+        <div class="block-card__text" itemprop="description">
+          <?php if ($this->teaser): ?>
+            <?php echo strip_tags($this->teaser); ?>
+          <?php endif ?>
+          <?php if ($this->files && count(unserialize($this->files))>1): ?>
+            <?php if ($this->files_label): ?>
+                <br>
+                <?php echo $this->files_label ?>
+                <br>
+            <?php endif ?>
+            <?php foreach (unserialize($this->files) as $key => $file): ?>
+              <?php  $objFile = FilesModel::findByUuid($file); ?>
+               <br><a download class="btn-bd-primary" href="<?php echo $objFile->path ?>"><?php echo str_replace('.'.$objFile->extension, '', $objFile->name) ?></a>
+            <?php endforeach ?>
+          <?php else: ?>
+            <?php foreach (unserialize($this->files) as $key => $file): ?>
+              <?php  $objFile = FilesModel::findByUuid($file); ?>
+               <br><a download class="btn-bd-primary" href="<?php echo $objFile->path ?>"><?php echo $this->files_label?:str_replace('.'.$objFile->extension, '', $objFile->name) ?></a>
+            <?php endforeach ?>
+          <?php endif ?>
+        </div>
+      <?php if ($this->jumpTo): ?>
+        <div class="block-card__actions">
+            <a href="<?= $this->jumpTo ?>" title="<?= $this->title.': '.$GLOBALS['TL_LANG']['MSC']['more'] ?>"<?= ($this->target) ? ' target="_blank"' : '' ?> class="btn-sm icon-last btn-bd-white">
+              {{iflng::fr}}Voir le projet{{iflng::en}}See project{{iflng}} <i class="fa-solid fa-arrow-right-long"></i>
+            </a>
+        </div>
+      <?php endif ?>
+    </div>
+  </div>
+</div>

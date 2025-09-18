@@ -1,0 +1,31 @@
+<?php $this->extend('block_unsearchable'); ?>
+
+<?php $this->block('content'); ?>
+	
+	<?php if($this->blnError): ?>
+		<p class="error"><?= $this->strError ?></p>
+	<?php else: ?>
+		<div class="d-grid cols-4 cols-md-1 alignitems--center m-bottom-x2">
+    		<div class="cols-span-3 cols-span-md-1">
+				<div class="ce_headline_highlighted h2 txt-balance">
+					Nos formations en {{page::title}}
+				</div>
+			</div>
+			<div class="txt-center hidden-md">
+				<a href="{{link_url::nos-domaines-de-formations}}" class="btn-bd-theme">Tous les domaines</a>
+			</div>
+		</div>
+		<?php if (empty($this->items)): ?>
+			<p class="empty"><?= $this->empty ?></p>
+		<?php else: ?>
+			<div class="portfolio__items block-card__container d-grid cols-autofill gap-1">
+				<?= implode('', $this->items) ?>
+			</div>
+			<?= $this->pagination ?>
+		<?php endif; ?>
+		<div class="txt-center visible-md m-top-x2">
+			<a href="{{link_url::nos-domaines-de-formations}}" class="btn-bd-theme">Tous les domaines</a>
+		</div>
+	<?php endif; ?>
+
+<?php $this->endblock(); ?>
