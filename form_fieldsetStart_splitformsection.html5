@@ -1,0 +1,2 @@
+<div class="splitForm__section <?php echo $this->class?:'' ?>" data-title="<?php echo $this->label?:'' ?>">
+<div class="splitForm__fields  d-grid cols-autofit" style="--griditem-minwidth: 500px;">
