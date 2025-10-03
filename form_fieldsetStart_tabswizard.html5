@@ -1,0 +1,7 @@
+<div class="tabs wizard <?php echo $this->class ?>">
+	<div class="tabs__nav" style="--btn-radius: 3px;">
+		<button type="button" class="btn-sm btn-bd-primary squared active" title="<?php echo $this->label?:'' ?> #1"><?php echo $this->label?:'' ?> #<span class="tab__number">1</span></button>
+		<button type="button" class="btn-sm btn-bd-secondary squared tabs__action exclude" data-action="addTab" title="{{iflng::fr}}Ajouter un élément{{iflng::en}}Add element{{iflng}}"><i class="fa fa-plus"></i></button>
+	</div>
+	<div class="tabs__content">
+		<div class="tab active block-std">
