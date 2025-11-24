@@ -1,0 +1,42 @@
+<div class="offer offer__default<?= $this->class ?>" data-offer="<?= $this->id ?>" itemscope itemtype="http://schema.org/Article" data-preset="inline">
+	<div class="offer__wrapper block-std">
+		<div class="offer__figure fit--scaledown">
+			<?php if ($this->entity): ?>
+				<?php 
+					$str_entity = 'Logo_'.str_replace(' ', '-', $this->entity);
+					if($str_entity != 'Logo_CERAP-GROUP')
+						$str_entity = 'subsidiaries/'.$str_entity;
+				?>
+				<img src="files/media/logos/<?php echo $str_entity ?>.png" alt="<?php echo $str_entity ?>" />
+			<?php else: ?>
+				<img src="files/media/logos/logo.png" alt="logo {{page::rootTitle}}" />
+			<?php endif ?>
+		</div>
+		<div class="offer__content">
+			<div class="offer__title">
+				<span class="ft-theme"><?php echo $this->title ?></span>
+				<?php if ($this->beetween_location || $this->beetween_location_city): ?>
+					<?php echo ' - <span class="ft-nowrap"> ' ?>
+					<?php if ($this->beetween_location): ?>
+						<?php echo $this->beetween_location  ?>
+					<?php elseif($this->beetween_location_city): ?>
+						<?php echo $this->beetween_location_city;  ?>
+						<?php echo $this->beetween_location_region2_code?' ('.$this->beetween_location_region2_code.')':'' ?>
+					<?php endif ?>
+					<?php echo '</span>' ?>
+				<?php endif ?>
+			</div>
+			<div class="ft-grey">
+				<?php echo $this->beetween_contract ?><br>
+				<?php echo $this->beetween_job_mission?strip_tags(html_entity_decode($this->beetween_job_mission)):'' ?><br>
+				<?php echo $this->beetween_job_profile?strip_tags(html_entity_decode($this->beetween_job_profile)):'' ?>
+			</div>
+		</div>
+		<div class="offer__actions">
+			<a href="<?= $this->beetween_applicationUrl?:$this->jumpTo ?>" class="btn-hexa btn-bg-theme offer__action" title="<?= $GLOBALS['TL_LANG']['WEM']['OFFERS']['seeOffer'] ?>" <?php echo $this->beetween_applicationUrl?'target="_blank"':'' ?>>
+				<i class="fa-regular fa-arrow-right-long"></i>
+			</a>
+		</div>
+	</div>
+</div>
+
