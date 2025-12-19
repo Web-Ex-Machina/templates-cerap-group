@@ -26,8 +26,8 @@
 					<?php echo '</span>' ?>
 				<?php endif ?>
 			</div>
-			<div class="ft-grey">
-				<?php echo $this->beetween_contract ?><br>
+			<div class="offer__text ft-grey" data-maxlines="4">
+				<?php echo 0 !== (int) $this->beetween_contract ? $this->beetween_contract : ''  ?>
 				<?php echo $this->beetween_job_mission?strip_tags(html_entity_decode($this->beetween_job_mission)):'' ?><br>
 				<?php echo $this->beetween_job_profile?strip_tags(html_entity_decode($this->beetween_job_profile)):'' ?>
 			</div>
