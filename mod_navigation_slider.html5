@@ -1,0 +1,9 @@
+<!-- indexer::stop -->
+<div class="sliderFW nav--hidden <?php echo $this->class ?>"<?= $this->cssID ?> data-nbitems="4" data-height="" data-duration="1000" data-delay="5600" data-auto="false" data-arrows="true" data-transition="" data-swipe="false" data-loop="true" data-keypress="false" data-minsizeitem="250">
+  <div class="sliderFW__container">
+    <div class="sliderFW__rail">
+      <?= $this->items ?>
+    </div>
+  </div>
+</div>
+<!-- indexer::continue -->
