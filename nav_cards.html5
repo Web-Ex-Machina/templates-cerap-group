@@ -21,7 +21,7 @@
           </div>
         <?php endif ?>
         <div class="block-card__content">
-          <div class="block-card__title h2 m-top-auto txt-balance txt-center"><?= $item['link'] ?></div>
+          <div class="block-card__title h3 m-top-auto txt-balance txt-center"><?= $item['link'] ?></div>
           <?php if ($item['description']): ?>
             <div class="block-card__text">
               <p><?php echo $item['description'] ?></p>
