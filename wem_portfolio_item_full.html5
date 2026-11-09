@@ -103,7 +103,7 @@
 		<?php
 			$objModel = ModuleModel::findByPk(54);
 			$objModel->wem_portfolio_constraints = serialize([
-				'tl_wem_portfolio.pid = ' . $this->pid,
+				'tl_wem_portfolio.pid = ' . $this->remotePid['id'],
 				'tl_wem_portfolio.id != ' . $this->id
 			]);
 
