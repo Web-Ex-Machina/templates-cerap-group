@@ -1,0 +1,22 @@
+<link rel="stylesheet" href="/assets/atron/atron-calculator.css">
+<link rel="stylesheet" href="/assets/atron/atron-tools.css">
+
+<div class="atron-theme" data-atron-tools="" data-atron-language="{{page::language}}"></div>
+
+<script src="/assets/atron/atron-calculator.js" defer></script>
+<script src="/assets/atron/atron-dose-calculator.js" defer></script>
+<script src="/assets/atron/atron-tools.js" defer></script>
+
+<style>
+	.atron-theme {
+	  --atron-accent: var(--primary);
+	  --atron-accent-contrast: #fff;
+	  --atron-surface: #fff;
+	  --atron-surface-alt: #f4f7f7;
+	  --atron-text: #17212b;
+	  --atron-muted: #66777b;
+	  --atron-border: #d4dddd;
+	  --atron-radius: .35rem;
+	  --atron-shadow: 0 1rem 2.5rem rgb(0 0 0 / .08);
+	}
+</style>
