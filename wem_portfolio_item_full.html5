@@ -81,7 +81,7 @@
 
 	<?php if (!empty($this->pictures) && count($this->pictures)>0): ?>
 		<div class="gallery m-bottom-x3">
-			<h2 class="ce_headline_highlighted">Le projet en images</h2>
+			<h2 class="ce_headline_highlighted">{{iflng::fr}}Le projet en images{{iflng::en}}The project in pictures{{iflng}}</h2>
 			<div class="d-grid cols-autofill">
 				<?php foreach ($this->pictures as $key => $picture): ?>
 					<a href="<?= $picture["singleSRC"] ?>" data-gallery="gallery_<?php echo $this->id ?>" data-modal="modalPicture_<?= $picture["id"]?:$key ?>" class="img-container r_4-3">
